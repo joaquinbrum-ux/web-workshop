@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School on Group Actions 2026</title>
+  <style>
+    :root {
+      --text: #222;
+      --muted: #555;
+      --line: #ccc;
+      --soft: #f5f5f5;
+      --link: #0645ad;
+      --max-width: 980px;
+    }
+
+    body {
+      margin: 0;
+      background: white;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px 22px 60px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 28px;
+    }
+
+    .logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .logo-card {
+      border: 1px solid var(--line);
+      background: white;
+      min-width: 118px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      box-sizing: border-box;
+    }
+
+    .logo-card.dark {
+      background: #111;
+    }
+
+    .logo-card img {
+      display: block;
+      max-width: 150px;
+      max-height: 54px;
+      object-fit: contain;
+    }
+
+    .logo-card.imerl img {
+      max-height: 58px;
+    }
+
+    .logo-card.mathamsud img {
+      max-width: 120px;
+      max-height: 58px;
+    }
+
+    h1 {
+      font-size: 38px;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      font-weight: normal;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .meta {
+      margin-top: 18px;
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: normal;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 5px;
+      margin-top: 34px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 22px;
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 24px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+
+    .registration-button {
+      display: inline-block;
+      border: 1px solid var(--link);
+      padding: 8px 12px;
+      margin: 6px 0 14px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    .registration-frame {
+      width: 100%;
+      min-height: 900px;
+      border: 1px solid var(--line);
+      margin-top: 12px;
+    }
+
+    .notice {
+      background: var(--soft);
+      border-left: 4px solid var(--line);
+      padding: 12px 16px;
+      margin: 18px 0;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 15px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      font-weight: normal;
+      text-align: left;
+    }
+
+    .small {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+
+    .hero-image {
+      margin: 22px 0 10px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 430px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      display: block;
+    }
+
+    .caption {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 42px;
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 30px; }
+      .subtitle { font-size: 18px; }
+      table { font-size: 13px; }
+      th, td { padding: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logos" aria-label="Sponsors and supporting institutions">
+        <div class="logo-card dark"><img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República"></div>
+        <div class="logo-card dark imerl"><img src="imerl-logo.png" alt="IMERL"></div>
+        <div class="logo-card"><img src="ifumi-logo.png" alt="IFUMI"></div>
+        <div class="logo-card"><img src="cmat-logo.png" alt="CMAT, UdelaR-FCIEN"></div>
+        <div class="logo-card mathamsud"><img src="mathamsud-logo.png" alt="Math AmSud"></div>
+      </div>
+
+      <h1>School on Group Actions</h1>
+      <p class="subtitle">Montevideo, Uruguay &middot; October 5&ndash;9, 2026</p>
+
+      <div class="meta">
+        <strong>Venue:</strong> IMERL, Facultad de Ingeniería, Universidad de la República<br>
+        <strong>Organizers:</strong> Juan Alonso, Joaquín Brum, Nancy Guelman, Nicolás Matte Bon, Cristóbal Rivas, Michele Triestino
+      </div>
+
+      <figure class="hero-image">
+        <img src="fing-building.png" alt="Facultad de Ingeniería, Universidad de la República, Montevideo">
+        <figcaption class="caption">Facultad de Ingeniería, Universidad de la República, Montevideo.</figcaption>
+      </figure>
+
+    </header>
+
+    <main>
+      <section id="about">
+        <h2>About the school</h2>
+        <p>
+          The School on Group Actions will take place in Montevideo, Uruguay,
+          from October 5 to October 9, 2026.
+        </p>
+        <p>
+          The aim of the school is to bring together students, early-career researchers,
+          and specialists working on group actions and related areas, including
+          one-dimensional dynamics, symbolic dynamics, computability aspects of dynamical systems, and geometric group theory.
+        </p>
+        <p>
+          The program will include lecture courses, research talks, and informal
+          discussion sessions. Further details will be posted on this page.
+        </p>
+      </section>
+
+      <section id="speakers">
+        <h2>Speakers</h2>
+        <p class="notice">The list of speakers will be updated as confirmations arrive.</p>
+
+        <h3>Minicourse speakers</h3>
+        <ul>
+          <li><strong>Sebastián Barbieri</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>João Carnevale and Michele Triestino</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Paula Cecchi</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Maximiliano Escayola</strong> &mdash; <em>Title to be announced</em></li>
+        </ul>
+
+        <h3>Talk speakers</h3>
+        <ul>
+          <li><strong>Marcos Barrios</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Mara Isabel Cortez</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Martin Gilabert</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Franco Gómez</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Jérôme Los</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Emir Molina</strong> &mdash; <em>Title to be announced</em></li>
+          <li><strong>Santiago Radi</strong> &mdash; <em>Title to be announced</em></li>
+        </ul>
+      </section>
+
+      <section id="program">
+        <h2>Program</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Monday 5</th>
+              <th>Tuesday 6</th>
+              <th>Wednesday 7</th>
+              <th>Thursday 8</th>
+              <th>Friday 9</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>09:00&ndash;10:20</td>
+              <td>Minicourse A</td>
+              <td>Minicourse A</td>
+              <td>Minicourse A</td>
+              <td>Minicourse C</td>
+              <td>Minicourse C</td>
+            </tr>
+            <tr>
+              <td>10:20&ndash;10:50</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+            </tr>
+            <tr>
+              <td>10:50&ndash;12:10</td>
+              <td>Minicourse B</td>
+              <td>Minicourse B</td>
+              <td>Minicourse B</td>
+              <td>Minicourse D</td>
+              <td>Minicourse D</td>
+            </tr>
+            <tr>
+              <td>12:10&ndash;14:00</td>
+              <td>Lunch break</td>
+              <td>Lunch break</td>
+              <td>Lunch break</td>
+              <td>Lunch break</td>
+              <td>Lunch break</td>
+            </tr>
+            <tr>
+              <td>14:00&ndash;15:00</td>
+              <td>Talk / problem session</td>
+              <td>Talk / problem session</td>
+              <td>Free time</td>
+              <td>Talk / problem session</td>
+              <td>Talk / problem session</td>
+            </tr>
+            <tr>
+              <td>15:15&ndash;16:15</td>
+              <td>Talk / problem session</td>
+              <td>Talk / problem session</td>
+              <td>Free time</td>
+              <td>Talk / problem session</td>
+              <td>Talk / problem session</td>
+            </tr>
+            <tr>
+              <td>16:15&ndash;16:45</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+              <td>Free time</td>
+              <td>Coffee break</td>
+              <td>Coffee break</td>
+            </tr>
+            <tr>
+              <td>16:45&ndash;17:45</td>
+              <td>Talk / problem session</td>
+              <td>Talk / problem session</td>
+              <td>Free time</td>
+              <td>Talk / problem session</td>
+              <td>Closing session</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="abstracts">
+        <h2>Abstracts</h2>
+        <p>
+          Abstracts will be posted here once available.
+        </p>
+      </section>
+
+      <section id="registration">
+        <h2>Registration</h2>
+        <p>
+          Registration is open until August 15, 2026. Please complete the registration form below.
+        </p>
+        <p>
+          Some accommodation support may be available. The organizing committee will inform applicants
+          about the availability of accommodation support shortly after the registration period closes.
+        </p>
+        <p>
+          <a class="registration-button" href="https://docs.google.com/forms/d/e/1FAIpQLSeCh5X_EMx0dKRz2QDZCTk6djzAK0XLe3oA98mdBmbd8AX0HQ/viewform" target="_blank" rel="noopener">Open registration form</a>
+        </p>
+        <iframe
+          class="registration-frame"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeCh5X_EMx0dKRz2QDZCTk6djzAK0XLe3oA98mdBmbd8AX0HQ/viewform?embedded=true"
+          title="Registration form — Workshop on Group Dynamics"
+          loading="lazy">
+          Loading…
+        </iframe>
+      </section>
+
+      <section id="venue">
+        <h2>Venue</h2>
+        <p>
+          The school will be held at IMERL, Facultad de Ingeniería,
+          Universidad de la República, Montevideo, Uruguay.
+        </p>
+        <p>
+          Further practical information about the venue, transportation, and accommodation
+          will be added closer to the event.
+        </p>
+      </section>
+
+      <section id="participants">
+        <h2>Participants</h2>
+        <p>
+          A list of registered participants may be posted here.
+        </p>
+      </section>
+
+      <section id="sponsors">
+        <h2>Sponsors and supporting institutions</h2>
+        <div class="logos" aria-label="Sponsors and supporting institutions">
+          <div class="logo-card dark"><img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República"></div>
+          <div class="logo-card dark imerl"><img src="imerl-logo.png" alt="IMERL"></div>
+          <div class="logo-card"><img src="ifumi-logo.png" alt="IFUMI"></div>
+          <div class="logo-card"><img src="cmat-logo.png" alt="CMAT, UdelaR-FCIEN"></div>
+        <div class="logo-card mathamsud"><img src="mathamsud-logo.png" alt="Math AmSud"></div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          For inquiries, please contact the organizers.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      School on Group Actions &middot; Montevideo, Uruguay &middot; Last updated: July 2026
+    </footer>
+  </div>
+</body>
+</html>
