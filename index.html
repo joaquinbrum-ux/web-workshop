@@ -1,2422 +1,2043 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Workshop on group dynamics 2026</title>
-
-<style>
-
-:root{
-  --ink:#17233d;
-  --text:#2c3749;
-  --muted:#68758a;
-  --grid:#c9d2df;
-  --head:#f3f6f9;
-
-  --mini:#dbeafe;
-  --mini-border:#93c5fd;
-
-  --talk:#dcfce7;
-  --talk-border:#86efac;
-
-  --coffee:#fef3c7;
-  --coffee-border:#facc15;
-
-  --lunch:#fee2e2;
-  --lunch-border:#fca5a5;
-
-  --free:#f3f4f6;
-  --free-border:#d1d5db;
-
-  /* Height of blocks proportional to duration */
-  --minute-height:1.25px;
-
-  --max:1480px;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  background:#fff;
-  color:var(--text);
-  font-family:Georgia,"Times New Roman",serif;
-  line-height:1.45;
-}
-
-.page{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:28px 26px 60px;
-}
-
-header{
-  border-bottom:1px solid var(--grid);
-  padding-bottom:20px;
-  margin-bottom:28px;
-}
-
-h1{
-  margin:0 0 6px;
-  color:var(--ink);
-  font-size:38px;
-  line-height:1.1;
-  font-weight:normal;
-}
-
-.subtitle{
-  margin:0;
-  color:var(--muted);
-  font-size:20px;
-}
-
-.meta{
-  margin-top:16px;
-  font-size:16px;
-}
-
-h2{
-  color:var(--ink);
-  font-size:30px;
-  font-weight:normal;
-  margin:38px 0 14px;
-  border-bottom:1px solid var(--grid);
-  padding-bottom:6px;
-}
-
-h3{
-  color:var(--ink);
-  margin:22px 0 8px;
-}
-
-a{
-  color:#174ea6;
-  text-decoration:none;
-}
-
-a:hover{
-  text-decoration:underline;
-}
-
-
-/* ---------- Legend ---------- */
-
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px 24px;
-  margin:12px 0 16px;
-  font:14px Arial,sans-serif;
-}
-
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.swatch{
-  width:18px;
-  height:18px;
-  border-radius:4px;
-  border:1px solid rgba(0,0,0,.12);
-}
-
-.swatch.mini{
-  background:var(--mini);
-}
-
-.swatch.talk{
-  background:var(--talk);
-}
-
-.swatch.coffee{
-  background:var(--coffee);
-}
-
-.swatch.lunch{
-  background:var(--lunch);
-}
-
-.program-note{
-  margin:0 0 14px;
-  color:var(--muted);
-  font:13px Arial,sans-serif;
-}
-
-
-/* =====================================================
-   PROGRAM GRID
-   Five independent day columns.
-   No horizontal hour lines.
-   ===================================================== */
-
-.week-wrap{
-  width:100%;
-  overflow-x:auto;
-  border:1px solid var(--grid);
-  border-radius:9px;
-  background:white;
-  box-shadow:0 3px 16px rgba(20,37,62,.06);
-}
-
-.week-grid{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(215px,1fr));
-  min-width:1120px;
-}
-
-.day{
-  border-right:1px solid var(--grid);
-  min-width:0;
-  background:#fff;
-}
-
-.day:last-child{
-  border-right:0;
-}
-
-.day-header{
-  min-height:58px;
-  background:var(--head);
-  border-bottom:1px solid var(--grid);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  text-align:center;
-  color:var(--ink);
-  font-weight:bold;
-  font-size:17px;
-
-  padding:9px;
-}
-
-.day-body{
-  padding:12px;
-  min-height:760px;
-}
-
-
-/* ---------- Schedule blocks ---------- */
-
-.slot{
-  position:relative;
-
-  /*
-    This makes the visual height proportional
-    to the duration in minutes.
-  */
-  height:max(
-    36px,
-    calc(var(--minutes) * var(--minute-height))
-  );
-
-  border:1px solid;
-  border-radius:8px;
-
-  padding:8px 9px;
-  margin-bottom:9px;
-
-  box-shadow:0 1px 2px rgba(0,0,0,.035);
-
-  overflow:visible;
-}
-
-.slot.mini{
-  background:var(--mini);
-  border-color:var(--mini-border);
-}
-
-.slot.talk{
-  background:var(--talk);
-  border-color:var(--talk-border);
-}
-
-.slot.coffee{
-  background:var(--coffee);
-  border-color:var(--coffee-border);
-}
-
-.slot.lunch{
-  background:var(--lunch);
-  border-color:var(--lunch-border);
-}
-
-.slot.free{
-  background:var(--free);
-  border-color:var(--free-border);
-  color:#768093;
-  font-style:italic;
-}
-
-.slot.has-abstract{
-  cursor:help;
-}
-
-.slot-time{
-  display:block;
-  color:#50647f;
-  font:12px Arial,sans-serif;
-  margin-bottom:2px;
-}
-
-.slot-name{
-  display:block;
-  color:var(--ink);
-
-  font-size:15px;
-  line-height:1.12;
-  font-weight:bold;
-}
-
-
-/*
-  The title is ALWAYS confined to its box.
-  If it is too long, it ends in ...
-*/
-
-.slot-title{
-  display:block;
-
-  width:100%;
-  max-width:100%;
-
-  margin-top:3px;
-
-  color:#40536c;
-
-  font-size:12px;
-  line-height:1.18;
-  font-style:italic;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.slot.coffee,
-.slot.lunch,
-.slot.free{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-
-/* =====================================================
-   ABSTRACT POPUPS
-   ===================================================== */
-
-.abstract-popup{
-  display:none;
-
-  position:absolute;
-  z-index:5000;
-
-  top:calc(100% + 6px);
-  left:8px;
-
-  width:min(410px,40vw);
-  max-height:410px;
-
-  overflow:auto;
-
-  background:white;
-  color:var(--text);
-
-  border:1px solid #bcc6d3;
-  border-radius:9px;
-
-  padding:14px 16px;
-
-  box-shadow:
-    0 12px 30px rgba(27,45,74,.2);
-
-  font:14px/1.45 Arial,sans-serif;
-}
-
-.abstract-popup.right{
-  left:auto;
-  right:8px;
-}
-
-.abstract-popup h4{
-  margin:0 0 4px;
-
-  color:var(--ink);
-
-  font:
-    700 18px
-    Georgia,
-    "Times New Roman",
-    serif;
-}
-
-.abstract-popup .popup-title{
-  margin:0 0 10px;
-  color:#40536c;
-  font-style:italic;
-}
-
-.abstract-popup p{
-  margin:0 0 9px;
-}
-
-.abstract-popup p:last-child{
-  margin-bottom:0;
-}
-
-.slot:hover,
-.slot:focus-within,
-.slot.open{
-  z-index:100;
-}
-
-
-/* Desktop hover */
-
-@media (hover:hover) and (pointer:fine){
-
-  .slot.has-abstract:hover
-  .abstract-popup{
-    display:block;
-  }
-
-}
-
-
-/* Click / keyboard */
-
-.slot.open .abstract-popup,
-.slot:focus-within .abstract-popup{
-  display:block;
-}
-
-
-/* =====================================================
-   OTHER SECTIONS
-   ===================================================== */
-
-.speaker-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:10px 28px;
-}
-
-.speaker{
-  border-bottom:1px solid #e8edf3;
-  padding:5px 0 9px;
-}
-
-.speaker strong{
-  color:var(--ink);
-}
-
-.speaker em{
-  display:block;
-  color:#596980;
-  margin-top:2px;
-}
-
-.participants{
-  columns:3;
-  column-gap:36px;
-}
-
-
-/* ---------- Logos ---------- */
-
-.logos{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  align-items:center;
-
-  margin-bottom:20px;
-}
-
-.logo-card{
-  height:68px;
-  min-width:120px;
-
-  border:1px solid var(--grid);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:8px 12px;
-
-  background:white;
-}
-
-.logo-card.dark{
-  background:#111;
-}
-
-.logo-card img{
-  max-width:130px;
-  max-height:52px;
-
-  object-fit:contain;
-}
-
-
-/* ---------- Footer ---------- */
-
-footer{
-  border-top:1px solid var(--grid);
-
-  margin-top:40px;
-  padding-top:14px;
-
-  color:var(--muted);
-  font-size:14px;
-}
-
-
-/* ---------- Mobile ---------- */
-
-@media(max-width:700px){
-
-  .page{
-    padding:20px 14px 42px;
-  }
-
-  h1{
-    font-size:31px;
-  }
-
-  .subtitle{
-    font-size:18px;
-  }
-
-  .speaker-grid{
-    grid-template-columns:1fr;
-  }
-
-  .participants{
-    columns:1;
-  }
-
-  .abstract-popup{
-    width:300px;
-    max-width:75vw;
-  }
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop on group dynamics 2026</title>
+
+  <style>
+    :root {
+      --text: #222;
+      --muted: #555;
+      --line: #ccc;
+      --soft: #f5f5f5;
+      --link: #0645ad;
+      --max-width: 980px;
+
+      --mini: #dbeafe;
+      --mini-border: #93c5fd;
+      --talk: #dcfce7;
+      --talk-border: #86efac;
+      --coffee: #fef3c7;
+      --coffee-border: #facc15;
+      --lunch: #fee2e2;
+      --lunch-border: #fca5a5;
+      --free: #f3f4f6;
+      --free-border: #d1d5db;
+
+      --minute-height: 1.25px;
+    }
+
+    body {
+      margin: 0;
+      background: white;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px 22px 60px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 28px;
+    }
+
+    .logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .logo-card {
+      border: 1px solid var(--line);
+      background: white;
+      min-width: 118px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      box-sizing: border-box;
+    }
+
+    .logo-card.dark {
+      background: #111;
+    }
+
+    .logo-card img {
+      display: block;
+      max-width: 150px;
+      max-height: 54px;
+      object-fit: contain;
+    }
+
+    .logo-card.imerl img {
+      max-height: 58px;
+    }
+
+    .logo-card.mathamsud img {
+      max-width: 120px;
+      max-height: 58px;
+    }
+
+    h1 {
+      font-size: 38px;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      font-weight: normal;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .meta {
+      margin-top: 18px;
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: normal;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 5px;
+      margin-top: 34px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 22px;
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 24px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    .hero-image {
+      margin: 22px 0 10px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 430px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      display: block;
+    }
+
+    .caption {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 42px;
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ==========================================================
+       PROGRAM
+       Five independent day columns; no horizontal time grid.
+       Heights are proportional to duration.
+       ========================================================== */
+
+    .program-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 22px;
+      margin: 10px 0 16px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .program-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .program-color {
+      width: 17px;
+      height: 17px;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,.12);
+    }
+
+    .program-color.mini {
+      background: var(--mini);
+    }
+
+    .program-color.talk {
+      background: var(--talk);
+    }
+
+    .program-color.coffee {
+      background: var(--coffee);
+    }
+
+    .program-color.lunch {
+      background: var(--lunch);
+    }
+
+    .program-help {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      margin: 0 0 14px;
+    }
+
+    .program-week-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .program-week {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      min-width: 900px;
+    }
+
+    .program-day {
+      border-right: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    .program-day:last-child {
+      border-right: none;
+    }
+
+    .program-day-header {
+      min-height: 50px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--soft);
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .program-day-body {
+      padding: 9px;
+      min-height: 620px;
+    }
+
+    .program-block {
+      position: relative;
+      height: max(34px, calc(var(--minutes) * var(--minute-height)));
+      margin-bottom: 8px;
+      padding: 7px 8px;
+      border: 1px solid;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .program-block.mini {
+      background: var(--mini);
+      border-color: var(--mini-border);
+    }
+
+    .program-block.talk {
+      background: var(--talk);
+      border-color: var(--talk-border);
+    }
+
+    .program-block.coffee {
+      background: var(--coffee);
+      border-color: var(--coffee-border);
+      padding: 4px 7px;
+      display: flex;
+      align-items: center;
+    }
+
+    .program-block.lunch {
+      background: var(--lunch);
+      border-color: var(--lunch-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .program-block.free {
+      background: var(--free);
+      border-color: var(--free-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #777;
+      font-style: italic;
+    }
+
+    .program-block.has-abstract {
+      cursor: help;
+    }
+
+    .program-time {
+      display: block;
+      color: #53657b;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      line-height: 1.15;
+      margin-bottom: 2px;
+    }
+
+    .program-name {
+      display: block;
+      color: #222;
+      font-size: 14px;
+      line-height: 1.1;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .program-title {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 3px;
+      color: #48576b;
+      font-size: 11px;
+      line-height: 1.1;
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .program-block.coffee .program-time {
+      display: inline;
+      margin: 0 5px 0 0;
+    }
+
+    .program-block.coffee .program-name {
+      display: inline;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      font-weight: normal;
+    }
+
+    /* Floating abstract popup */
+
+    #program-popup {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      width: min(420px, calc(100vw - 30px));
+      max-height: min(500px, 75vh);
+      overflow-y: auto;
+      padding: 15px 17px;
+      background: white;
+      border: 1px solid #aaa;
+      border-radius: 7px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.20);
+      color: #222;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    #program-popup.visible {
+      display: block;
+    }
+
+    #program-popup h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      margin: 0 0 3px;
+    }
+
+    #program-popup .popup-title {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 11px;
+    }
+
+    #program-popup p {
+      margin: 0 0 9px;
+    }
+
+    #program-popup p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .program-week {
+        min-width: 900px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
 <div class="page">
 
+  <header>
+
+    <div class="logos" aria-label="Sponsors and supporting institutions">
+
+      <div class="logo-card dark">
+        <img
+          src="fing-logo.png"
+          alt="Facultad de Ingeniería, Universidad de la República"
+        >
+      </div>
+
+      <div class="logo-card dark imerl">
+        <img
+          src="imerl-logo.png"
+          alt="IMERL"
+        >
+      </div>
+
+      <div class="logo-card">
+        <img
+          src="ifumi-logo.png"
+          alt="IFUMI"
+        >
+      </div>
+
+      <div class="logo-card">
+        <img
+          src="cmat-logo.png"
+          alt="Centro de Matemática, Facultad de Ciencias, Universidad de la República"
+        >
+      </div>
+
+      <div class="logo-card mathamsud">
+        <img
+          src="mathamsud-logo.png"
+          alt="Math AmSud"
+        >
+      </div>
+
+    </div>
+
+    <h1>
+      Workshop on group dynamics
+    </h1>
+
+    <p class="subtitle">
+      Montevideo, Uruguay &middot; October 5&ndash;9, 2026
+    </p>
+
+    <div class="meta">
+      <strong>Venue:</strong>
+      IMERL, Facultad de Ingeniería, Universidad de la República
+      <br>
+
+      <strong>Organizers:</strong>
+      Juan Alonso,
+      Joaquín Brum,
+      Nancy Guelman,
+      Nicolás Matte Bon,
+      Cristóbal Rivas,
+      Michele Triestino
+    </div>
+
+    <figure class="hero-image">
+
+      <img
+        src="fing-building.png"
+        alt="Facultad de Ingeniería, Universidad de la República, Montevideo"
+      >
+
+      <figcaption class="caption">
+        Facultad de Ingeniería,
+        Universidad de la República,
+        Montevideo.
+      </figcaption>
+
+    </figure>
+
+  </header>
+
+
+  <main>
+
+    <section id="about">
+
+      <h2>
+        About the workshop
+      </h2>
+
+      <p>
+        The Workshop on group dynamics will take place in Montevideo,
+        Uruguay, from October 5 to October 9, 2026.
+      </p>
+
+      <p>
+        The aim of the workshop is to bring together students,
+        early-career researchers, and specialists working on group actions
+        and related areas, including one-dimensional dynamics,
+        symbolic dynamics, computability aspects of dynamical systems,
+        and geometric group theory.
+      </p>
+
+      <p>
+        The program will include lecture courses,
+        research talks, and informal discussion sessions.
+      </p>
+
+    </section>
+
+
+    <section id="speakers">
+
+      <h2>
+        Speakers
+      </h2>
+
+      <h3>
+        Minicourse speakers
+      </h3>
+
+      <ul>
+
+        <li>
+          <strong>Sebastián Barbieri</strong>
+          (Universidad de Chile, Chile)
+          &mdash;
+          <em>
+            Universalidad de los subshift de tipo finito para grupos
+          </em>
+        </li>
+
+        <li>
+          <strong>João Carnevale</strong>
+          (Universidad Federal do Rio, Brazil)
+          and
+          <strong>Michele Triestino</strong>
+          (Universidad de Marsella, France)
+          &mdash;
+          <em>
+            On Möbius-like groups of circle homeomorphisms
+          </em>
+        </li>
+
+        <li>
+          <strong>Paulina Cecchi</strong>
+          (Universidad de Chile, Chile)
+          &mdash;
+          <em>
+            Monotilings en grupos promediables
+          </em>
+        </li>
+
+        <li>
+          <strong>Maximiliano Escayola</strong>
+          (KIAS, Korea)
+          &mdash;
+          <em>TBA</em>
+        </li>
+
+      </ul>
+
+
+      <h3>
+        Talk speakers
+      </h3>
+
+      <ul>
+
+        <li>
+          <strong>Marcos Barrios</strong>
+          (UdelaR, Uruguay)
+          &mdash;
+          <em>TBA</em>
+        </li>
+
+        <li>
+          <strong>Leon Carvajales</strong>
+          (IESTA, UdelaR, Uruguay)
+          &mdash;
+          <em>TBA</em>
+        </li>
+
+        <li>
+          <strong>María Isabel Cortez</strong>
+          (Universidad Católica, Chile)
+          &mdash;
+          <em>
+            Desde simplex de Poulsen al simplex vacío:
+            problemas de realización en dinámica simbólica
+          </em>
+        </li>
+
+        <li>
+          <strong>Martin Gilabert</strong>
+          (Université de Rennes, France)
+          &mdash;
+          <em>TBA</em>
+        </li>
+
+        <li>
+          <strong>Franco Gómez</strong>
+          (Universidad de Chile, Chile)
+          &mdash;
+          <em>
+            Dinámica 1-dimensional de los grupos Baumslag-Solitar
+          </em>
+        </li>
+
+        <li>
+          <strong>Jérôme Los</strong>
+          (Universidad de Marsella, France)
+          &mdash;
+          <em>
+            New Piecewise Linear representations of surface groups
+            in Homeo(S¹)
+          </em>
+        </li>
+
+        <li>
+          <strong>Emir Molina</strong>
+          (Universidad de Chile, Chile)
+          &mdash;
+          <em>TBA</em>
+        </li>
+
+        <li>
+          <strong>Santiago Radi</strong>
+          (UdelaR, Uruguay)
+          &mdash;
+          <em>
+            Proportion of periodic points in reduction of rational maps
+          </em>
+        </li>
+
+        <li>
+          <strong>Théo Virot</strong>
+          &mdash;
+          <em>
+            Subgroup Distortion in Thompson’s groups
+          </em>
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <section id="program">
+
+      <h2>
+        Program
+      </h2>
+
+      <div class="program-legend">
+
+        <span class="program-legend-item">
+          <span class="program-color mini"></span>
+          Mini-course
+        </span>
+
+        <span class="program-legend-item">
+          <span class="program-color talk"></span>
+          Research talk
+        </span>
+
+        <span class="program-legend-item">
+          <span class="program-color coffee"></span>
+          Coffee break
+        </span>
+
+        <span class="program-legend-item">
+          <span class="program-color lunch"></span>
+          Lunch break
+        </span>
+
+      </div>
+
+      <p class="program-help">
+        Block heights are proportional to duration.
+        Hover over a mini-course or research talk to see its abstract;
+        click to keep it open.
+      </p>
+
+      <div class="program-week-wrapper">
+
+        <div class="program-week">
+
+
+          <!-- MONDAY -->
+
+          <div class="program-day">
+
+            <div class="program-day-header">
+              Monday 5
+            </div>
+
+            <div class="program-day-body">
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="triestino"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  09:00–10:05
+                </span>
+
+                <span class="program-name">
+                  Triestino–Carnevale I
+                </span>
+
+                <span class="program-title">
+                  On Möbius-like groups of circle homeomorphisms
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  10:05–10:30
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="escayola"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  10:30–11:35
+                </span>
+
+                <span class="program-name">
+                  Maximiliano Escayola I
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block lunch"
+                style="--minutes:115"
+              >
+                <span class="program-time">
+                  11:35–13:30
+                </span>
+
+                <span class="program-name">
+                  Lunch break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="gomez"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  13:30–14:20
+                </span>
+
+                <span class="program-name">
+                  Franco Gómez
+                </span>
+
+                <span class="program-title">
+                  Dinámica 1-dimensional de los grupos Baumslag-Solitar
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="carvajales"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  14:30–15:20
+                </span>
+
+                <span class="program-name">
+                  Leon Carvajales
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  15:20–15:45
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="radi"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  15:45–16:35
+                </span>
+
+                <span class="program-name">
+                  Santiago Radi
+                </span>
+
+                <span class="program-title">
+                  Proportion of periodic points in reduction of rational maps
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- TUESDAY -->
+
+          <div class="program-day">
+
+            <div class="program-day-header">
+              Tuesday 6
+            </div>
+
+            <div class="program-day-body">
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="triestino"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  09:00–10:05
+                </span>
+
+                <span class="program-name">
+                  Triestino–Carnevale II
+                </span>
+
+                <span class="program-title">
+                  On Möbius-like groups of circle homeomorphisms
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  10:05–10:30
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="escayola"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  10:30–11:35
+                </span>
+
+                <span class="program-name">
+                  Maximiliano Escayola II
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block lunch"
+                style="--minutes:115"
+              >
+                <span class="program-time">
+                  11:35–13:30
+                </span>
+
+                <span class="program-name">
+                  Lunch break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="cecchi"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  13:30–14:35
+                </span>
+
+                <span class="program-name">
+                  Paulina Cecchi I
+                </span>
+
+                <span class="program-title">
+                  Monotilings en grupos promediables
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="barbieri"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  14:45–15:50
+                </span>
+
+                <span class="program-name">
+                  Sebastián Barbieri I
+                </span>
+
+                <span class="program-title">
+                  Universalidad de los subshift de tipo finito para grupos
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="virot"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  16:00–16:50
+                </span>
+
+                <span class="program-name">
+                  Théo Virot
+                </span>
+
+                <span class="program-title">
+                  Subgroup Distortion in Thompson’s groups
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- WEDNESDAY -->
+
+          <div class="program-day">
+
+            <div class="program-day-header">
+              Wednesday 7
+            </div>
+
+            <div class="program-day-body">
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="triestino"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  09:00–10:05
+                </span>
+
+                <span class="program-name">
+                  Triestino–Carnevale III
+                </span>
+
+                <span class="program-title">
+                  On Möbius-like groups of circle homeomorphisms
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  10:05–10:30
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="escayola"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  10:30–11:35
+                </span>
+
+                <span class="program-name">
+                  Maximiliano Escayola III
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="cortez"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  11:45–12:35
+                </span>
+
+                <span class="program-name">
+                  María Isabel Cortez
+                </span>
+
+                <span class="program-title">
+                  Desde simplex de Poulsen al simplex vacío:
+                  problemas de realización en dinámica simbólica
+                </span>
+              </div>
+
+
+              <div
+                class="program-block free"
+                style="--minutes:180"
+              >
+                <span class="program-time">
+                  Afternoon
+                </span>
+
+                <span class="program-name">
+                  Free afternoon
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- THURSDAY -->
+
+          <div class="program-day">
+
+            <div class="program-day-header">
+              Thursday 8
+            </div>
+
+            <div class="program-day-body">
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="cecchi"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  09:00–10:05
+                </span>
+
+                <span class="program-name">
+                  Paulina Cecchi II
+                </span>
+
+                <span class="program-title">
+                  Monotilings en grupos promediables
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  10:05–10:30
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="barbieri"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  10:30–11:35
+                </span>
+
+                <span class="program-name">
+                  Sebastián Barbieri II
+                </span>
+
+                <span class="program-title">
+                  Universalidad de los subshift de tipo finito para grupos
+                </span>
+              </div>
+
+
+              <div
+                class="program-block lunch"
+                style="--minutes:115"
+              >
+                <span class="program-time">
+                  11:35–13:30
+                </span>
+
+                <span class="program-name">
+                  Lunch break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="molina"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  13:30–14:20
+                </span>
+
+                <span class="program-name">
+                  Emir Molina
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="barrios"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  14:30–15:20
+                </span>
+
+                <span class="program-name">
+                  Marcos Barrios
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- FRIDAY -->
+
+          <div class="program-day">
+
+            <div class="program-day-header">
+              Friday 9
+            </div>
+
+            <div class="program-day-body">
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="barbieri"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  09:00–10:05
+                </span>
+
+                <span class="program-name">
+                  Sebastián Barbieri III
+                </span>
+
+                <span class="program-title">
+                  Universalidad de los subshift de tipo finito para grupos
+                </span>
+              </div>
+
+
+              <div
+                class="program-block coffee"
+                style="--minutes:25"
+              >
+                <span class="program-time">
+                  10:05–10:30
+                </span>
+
+                <span class="program-name">
+                  Coffee break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block mini has-abstract"
+                data-info="cecchi"
+                style="--minutes:65"
+              >
+                <span class="program-time">
+                  10:30–11:35
+                </span>
+
+                <span class="program-name">
+                  Paulina Cecchi III
+                </span>
+
+                <span class="program-title">
+                  Monotilings en grupos promediables
+                </span>
+              </div>
+
+
+              <div
+                class="program-block lunch"
+                style="--minutes:145"
+              >
+                <span class="program-time">
+                  11:35–14:00
+                </span>
+
+                <span class="program-name">
+                  Lunch break
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="gilabert"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  14:00–14:50
+                </span>
+
+                <span class="program-name">
+                  Martin Gilabert
+                </span>
+
+                <span class="program-title">
+                  TBA
+                </span>
+              </div>
+
+
+              <div
+                class="program-block talk has-abstract"
+                data-info="los"
+                style="--minutes:50"
+              >
+                <span class="program-time">
+                  15:00–15:50
+                </span>
+
+                <span class="program-name">
+                  Jérôme Los
+                </span>
+
+                <span class="program-title">
+                  New Piecewise Linear representations
+                  of surface groups in Homeo(S¹)
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div id="program-popup">
+        <h3></h3>
+        <div class="popup-title"></div>
+        <div class="popup-body"></div>
+      </div>
+
+    </section>
+
+
+    <section id="venue">
+
+      <h2>
+        Venue
+      </h2>
+
+      <p>
+        The workshop will be held at IMERL,
+
+        <a
+          href="https://maps.app.goo.gl/DFyvmnpEegjoErq48"
+          target="_blank"
+          rel="noopener"
+        >
+          Facultad de Ingeniería
+        </a>,
+
+        Universidad de la República,
+        Montevideo, Uruguay.
+      </p>
+
+      <p>
+        Further practical information about the venue,
+        transportation, and accommodation
+        will be added closer to the event.
+      </p>
+
+    </section>
+
+
+    <section id="participants">
+
+      <h2>
+        Participants
+      </h2>
+
+      <ul>
+        <li>Juan Alonso</li>
+        <li>Marcos Barrios</li>
+        <li>Sebastián Barbieri</li>
+        <li>Joaquín Brum</li>
+        <li>João Carnevale</li>
+        <li>Leon Carvajales</li>
+        <li>Paulina Cecchi</li>
+        <li>María Isabel Cortez</li>
+        <li>Maximiliano Escayola</li>
+        <li>Martin Gilabert</li>
+        <li>Franco Gómez</li>
+        <li>Nancy Guelman</li>
+        <li>Jérôme Los</li>
+        <li>Emir Molina</li>
+        <li>Juan Morelli</li>
+        <li>Luis Pedro Piñeyrúa</li>
+        <li>Santiago Radi</li>
+        <li>Michele Triestino</li>
+        <li>Théo Virot</li>
+      </ul>
+
+    </section>
+
+
+    <section id="sponsors">
+
+      <h2>
+        Sponsors and supporting institutions
+      </h2>
+
+      <div
+        class="logos"
+        aria-label="Sponsors and supporting institutions"
+      >
+
+        <div class="logo-card dark">
+          <img
+            src="fing-logo.png"
+            alt="Facultad de Ingeniería, Universidad de la República"
+          >
+        </div>
+
+        <div class="logo-card dark imerl">
+          <img
+            src="imerl-logo.png"
+            alt="IMERL"
+          >
+        </div>
+
+        <div class="logo-card">
+          <img
+            src="ifumi-logo.png"
+            alt="IFUMI"
+          >
+        </div>
+
+        <div class="logo-card">
+          <img
+            src="cmat-logo.png"
+            alt="Centro de Matemática, Facultad de Ciencias, Universidad de la República"
+          >
+        </div>
+
+        <div class="logo-card mathamsud">
+          <img
+            src="mathamsud-logo.png"
+            alt="Math AmSud"
+          >
+        </div>
+
+      </div>
+
+      <p>
+        <strong>
+          Centro de Matemática (CMAT)
+        </strong>,
+        Facultad de Ciencias,
+        Universidad de la República.
+      </p>
+
+    </section>
+
+
+    <section id="contact">
+
+      <h2>
+        Contact
+      </h2>
+
+      <p>
+        For inquiries,
+        please contact joaquinbrum@gmail.com
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    Workshop on group dynamics
+    &middot;
+    Montevideo, Uruguay
+    &middot;
+    Last updated: September 2026
+  </footer>
 
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
-<header>
-
-<div class="logos">
-
-  <div class="logo-card dark">
-    <img
-      src="fing-logo.png"
-      alt="Facultad de Ingeniería">
-  </div>
-
-  <div class="logo-card dark">
-    <img
-      src="imerl-logo.png"
-      alt="IMERL">
-  </div>
-
-  <div class="logo-card">
-    <img
-      src="ifumi-logo.png"
-      alt="IFUMI">
-  </div>
-
-  <div class="logo-card">
-    <img
-      src="cmat-logo.png"
-      alt="CMAT">
-  </div>
-
-  <div class="logo-card">
-    <img
-      src="mathamsud-logo.png"
-      alt="Math AmSud">
-  </div>
-
-</div>
-
-
-<h1>
-Workshop on group dynamics
-</h1>
-
-
-<p class="subtitle">
-Montevideo, Uruguay · October 5–9, 2026
-</p>
-
-
-<div class="meta">
-
-<strong>Venue:</strong>
-IMERL,
-Facultad de Ingeniería,
-Universidad de la República
-
-<br>
-
-<strong>Organizers:</strong>
-Juan Alonso,
-Joaquín Brum,
-Nancy Guelman,
-Nicolás Matte Bon,
-Cristóbal Rivas,
-Michele Triestino
-
-</div>
-
-</header>
-
-
-
-<!-- =====================================================
-     PROGRAM
-     ===================================================== -->
-
-<section id="program">
-
-<h2>
-Program
-</h2>
-
-
-<div class="legend">
-
-<span class="legend-item">
-  <span class="swatch mini"></span>
-  Mini-course
-</span>
-
-<span class="legend-item">
-  <span class="swatch talk"></span>
-  Research talk
-</span>
-
-<span class="legend-item">
-  <span class="swatch coffee"></span>
-  Coffee break
-</span>
-
-<span class="legend-item">
-  <span class="swatch lunch"></span>
-  Lunch break
-</span>
-
-</div>
-
-
-<p class="program-note">
-
-Block heights are proportional to duration.
-
-Hover over a mini-course or research talk
-to see its abstract.
-
-Click to keep it open.
-
-</p>
-
-
-
-<div class="week-wrap">
-
-<div class="week-grid">
-
-
-<!-- =====================================================
-     MONDAY
-     ===================================================== -->
-
-<section class="day">
-
-<div class="day-header">
-Monday 5
-</div>
-
-
-<div class="day-body">
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="triestino"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-09:00–10:05
-</span>
-
-<span class="slot-name">
-João Carnevale &amp; Michele Triestino I
-</span>
-
-<span class="slot-title">
-On Möbius-like groups of circle homeomorphisms
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-10:05–10:30
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="escayola"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-10:30–11:35
-</span>
-
-<span class="slot-name">
-Maximiliano Escayola I
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot lunch"
-  style="--minutes:115">
-
-<span class="slot-time">
-11:35–13:30
-</span>
-
-<span class="slot-name">
-Lunch break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="gomez"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-13:30–14:20
-</span>
-
-<span class="slot-name">
-Franco Gómez
-</span>
-
-<span class="slot-title">
-Dinámica 1-dimensional de los grupos Baumslag-Solitar
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="carvajales"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-14:30–15:20
-</span>
-
-<span class="slot-name">
-Leon Carvajales
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-15:20–15:45
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="radi"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-15:45–16:35
-</span>
-
-<span class="slot-name">
-Santiago Radi
-</span>
-
-<span class="slot-title">
-Proportion of periodic points in reduction of rational maps
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     TUESDAY
-     ===================================================== -->
-
-<section class="day">
-
-<div class="day-header">
-Tuesday 6
-</div>
-
-
-<div class="day-body">
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="triestino"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-09:00–10:05
-</span>
-
-<span class="slot-name">
-João Carnevale &amp; Michele Triestino II
-</span>
-
-<span class="slot-title">
-On Möbius-like groups of circle homeomorphisms
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-10:05–10:30
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="escayola"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-10:30–11:35
-</span>
-
-<span class="slot-name">
-Maximiliano Escayola II
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot lunch"
-  style="--minutes:115">
-
-<span class="slot-time">
-11:35–13:30
-</span>
-
-<span class="slot-name">
-Lunch break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="cecchi"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-13:30–14:35
-</span>
-
-<span class="slot-name">
-Paulina Cecchi I
-</span>
-
-<span class="slot-title">
-Monotilings en grupos promediables
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="barbieri"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-14:45–15:50
-</span>
-
-<span class="slot-name">
-Sebastián Barbieri I
-</span>
-
-<span class="slot-title">
-Universalidad de los subshift de tipo finito para grupos
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="virot"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-16:00–16:50
-</span>
-
-<span class="slot-name">
-Théo Virot
-</span>
-
-<span class="slot-title">
-Subgroup Distortion in Thompson’s groups
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     WEDNESDAY
-     ===================================================== -->
-
-<section class="day">
-
-<div class="day-header">
-Wednesday 7
-</div>
-
-
-<div class="day-body">
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="triestino"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-09:00–10:05
-</span>
-
-<span class="slot-name">
-João Carnevale &amp; Michele Triestino III
-</span>
-
-<span class="slot-title">
-On Möbius-like groups of circle homeomorphisms
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-10:05–10:30
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="escayola"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-10:30–11:35
-</span>
-
-<span class="slot-name">
-Maximiliano Escayola III
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="cortez"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-11:45–12:35
-</span>
-
-<span class="slot-name">
-María Isabel Cortez
-</span>
-
-<span class="slot-title">
-Desde simplex de Poulsen al simplex vacío:
-problemas de realización en dinámica simbólica
-</span>
-
-</div>
-
-
-
-<div
-  class="slot free"
-  style="--minutes:120">
-
-<span class="slot-time">
-Afternoon
-</span>
-
-<span class="slot-name">
-Free afternoon
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     THURSDAY
-     ===================================================== -->
-
-<section class="day">
-
-<div class="day-header">
-Thursday 8
-</div>
-
-
-<div class="day-body">
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="cecchi"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-09:00–10:05
-</span>
-
-<span class="slot-name">
-Paulina Cecchi II
-</span>
-
-<span class="slot-title">
-Monotilings en grupos promediables
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-10:05–10:30
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="barbieri"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-10:30–11:35
-</span>
-
-<span class="slot-name">
-Sebastián Barbieri II
-</span>
-
-<span class="slot-title">
-Universalidad de los subshift de tipo finito para grupos
-</span>
-
-</div>
-
-
-
-<div
-  class="slot lunch"
-  style="--minutes:115">
-
-<span class="slot-time">
-11:35–13:30
-</span>
-
-<span class="slot-name">
-Lunch break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="molina"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-13:30–14:20
-</span>
-
-<span class="slot-name">
-Emir Molina
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="barrios"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-14:30–15:20
-</span>
-
-<span class="slot-name">
-Marcos Barrios
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FRIDAY
-     ===================================================== -->
-
-<section class="day">
-
-<div class="day-header">
-Friday 9
-</div>
-
-
-<div class="day-body">
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="barbieri"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-09:00–10:05
-</span>
-
-<span class="slot-name">
-Sebastián Barbieri III
-</span>
-
-<span class="slot-title">
-Universalidad de los subshift de tipo finito para grupos
-</span>
-
-</div>
-
-
-
-<div
-  class="slot coffee"
-  style="--minutes:25">
-
-<span class="slot-time">
-10:05–10:30
-</span>
-
-<span class="slot-name">
-Coffee break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot mini has-abstract"
-  data-abstract="cecchi"
-  style="--minutes:65"
-  tabindex="0">
-
-<span class="slot-time">
-10:30–11:35
-</span>
-
-<span class="slot-name">
-Paulina Cecchi III
-</span>
-
-<span class="slot-title">
-Monotilings en grupos promediables
-</span>
-
-</div>
-
-
-
-<div
-  class="slot lunch"
-  style="--minutes:145">
-
-<span class="slot-time">
-11:35–14:00
-</span>
-
-<span class="slot-name">
-Lunch break
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="gilabert"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-14:00–14:50
-</span>
-
-<span class="slot-name">
-Martin Gilabert
-</span>
-
-<span class="slot-title">
-TBA
-</span>
-
-</div>
-
-
-
-<div
-  class="slot talk has-abstract"
-  data-abstract="los"
-  style="--minutes:50"
-  tabindex="0">
-
-<span class="slot-time">
-15:00–15:50
-</span>
-
-<span class="slot-name">
-Jérôme Los
-</span>
-
-<span class="slot-title">
-New Piecewise Linear representations of surface groups in Homeo(S¹)
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     SPEAKERS
-     ===================================================== -->
-
-<section id="speakers">
-
-<h2>
-Speakers
-</h2>
-
-
-<h3>
-Minicourse speakers
-</h3>
-
-
-<div class="speaker-grid">
-
-
-<div class="speaker">
-
-<strong>
-Sebastián Barbieri
-</strong>
-
-(Universidad de Chile, Chile)
-
-<em>
-Universalidad de los subshift de tipo finito para grupos
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-João Carnevale &amp; Michele Triestino
-</strong>
-
-<em>
-On Möbius-like groups of circle homeomorphisms
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Paulina Cecchi
-</strong>
-
-(Universidad de Chile, Chile)
-
-<em>
-Monotilings en grupos promediables
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Maximiliano Escayola
-</strong>
-
-(KIAS, Korea)
-
-<em>
-TBA
-</em>
-
-</div>
-
-
-</div>
-
-
-
-<h3>
-Talk speakers
-</h3>
-
-
-<div class="speaker-grid">
-
-
-<div class="speaker">
-
-<strong>
-Marcos Barrios
-</strong>
-
-(UdelaR, Uruguay)
-
-<em>
-TBA
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Leon Carvajales
-</strong>
-
-(IESTA, UdelaR, Uruguay)
-
-<em>
-TBA
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-María Isabel Cortez
-</strong>
-
-(Universidad Católica, Chile)
-
-<em>
-Desde simplex de Poulsen al simplex vacío:
-problemas de realización en dinámica simbólica
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Martin Gilabert
-</strong>
-
-(Université de Rennes, France)
-
-<em>
-TBA
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Franco Gómez
-</strong>
-
-(Universidad de Chile, Chile)
-
-<em>
-Dinámica 1-dimensional de los grupos Baumslag-Solitar
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Jérôme Los
-</strong>
-
-(Universidad de Marsella, France)
-
-<em>
-New Piecewise Linear representations of surface groups
-in Homeo(S¹)
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Emir Molina
-</strong>
-
-(Universidad de Chile, Chile)
-
-<em>
-TBA
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Santiago Radi
-</strong>
-
-(UdelaR, Uruguay)
-
-<em>
-Proportion of periodic points in reduction of rational maps
-</em>
-
-</div>
-
-
-
-<div class="speaker">
-
-<strong>
-Théo Virot
-</strong>
-
-<em>
-Subgroup Distortion in Thompson’s groups
-</em>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     VENUE
-     ===================================================== -->
-
-<section id="venue">
-
-<h2>
-Venue
-</h2>
-
-<p>
-
-The workshop will be held at IMERL,
-
-<a
-href="https://maps.app.goo.gl/DFyvmnpEegjoErq48"
-target="_blank"
-rel="noopener">
-
-Facultad de Ingeniería
-
-</a>,
-
-Universidad de la República,
-Montevideo, Uruguay.
-
-</p>
-
-</section>
-
-
-
-<!-- =====================================================
-     PARTICIPANTS
-     ===================================================== -->
-
-<section id="participants">
-
-<h2>
-Participants
-</h2>
-
-<ul class="participants">
-
-<li>Juan Alonso</li>
-<li>Marcos Barrios</li>
-<li>Sebastián Barbieri</li>
-<li>Joaquín Brum</li>
-<li>João Carnevale</li>
-<li>Leon Carvajales</li>
-<li>Paulina Cecchi</li>
-<li>María Isabel Cortez</li>
-<li>Maximiliano Escayola</li>
-<li>Martin Gilabert</li>
-<li>Franco Gómez</li>
-<li>Nancy Guelman</li>
-<li>Jérôme Los</li>
-<li>Emir Molina</li>
-<li>Juan Morelli</li>
-<li>Luis Pedro Piñeyrúa</li>
-<li>Santiago Radi</li>
-<li>Michele Triestino</li>
-<li>Théo Virot</li>
-
-</ul>
-
-</section>
-
-
-
-<!-- =====================================================
-     SPONSORS
-     ===================================================== -->
-
-<section>
-
-<h2>
-Sponsors and supporting institutions
-</h2>
-
-
-<div class="logos">
-
-
-<div class="logo-card dark">
-
-<img
-src="fing-logo.png"
-alt="Facultad de Ingeniería">
-
-</div>
-
-
-<div class="logo-card dark">
-
-<img
-src="imerl-logo.png"
-alt="IMERL">
-
-</div>
-
-
-<div class="logo-card">
-
-<img
-src="ifumi-logo.png"
-alt="IFUMI">
-
-</div>
-
-
-<div class="logo-card">
-
-<img
-src="cmat-logo.png"
-alt="CMAT">
-
-</div>
-
-
-<div class="logo-card">
-
-<img
-src="mathamsud-logo.png"
-alt="Math AmSud">
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CONTACT
-     ===================================================== -->
-
-<section>
-
-<h2>
-Contact
-</h2>
-
-<p>
-For inquiries, please contact
-joaquinbrum@gmail.com.
-</p>
-
-</section>
-
-
-
-<footer>
-
-Workshop on group dynamics ·
-Montevideo, Uruguay ·
-Last updated: September 2026
-
-</footer>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     ABSTRACTS
-     Each abstract is defined once and reused.
-     ===================================================== -->
-
-
-<template id="abstract-triestino">
-
-<h4>
-João Carnevale &amp; Michele Triestino
-</h4>
-
-<div class="popup-title">
-On Möbius-like groups of circle homeomorphisms
-</div>
-
-
-<p>
-The celebrated convergence group theorem characterizes,
-among general subgroups of Homeo(S¹),
-those that are topologically conjugate to subgroups of
-PSL(2,R).
-The convergence property is, however,
-a global property of the subgroup.
-</p>
-
-
-<p>
-A more natural local property would be to require that
-every single element is topologically conjugate to an
-element of PSL(2,R).
-Groups satisfying this condition are called Möbius-like,
-but this is not enough to imply the convergence property.
-</p>
-
-
-<p>
-The first clever constructions of Möbius-like groups which
-are not convergence groups have been produced by Kovačević.
-This was later generalized by the first named speaker,
-and we will explain the main ideas.
-</p>
-
-
-<p>
-Considering that this is the only known construction,
-Bonatti has conjectured that any Möbius-like group is
-obtained in this way by repeated applications of generalized
-Kovacevic constructions.
-
-We will present a partial progress in this direction obtained
-by the second named speaker with KyeongRo Kim.
-</p>
-
-</template>
-
-
-
-<template id="abstract-escayola">
-
-<h4>
-Maximiliano Escayola
-</h4>
-
-<div class="popup-title">
-TBA
-</div>
-
-<p>
-Abstract: TBA.
-</p>
-
-</template>
-
-
-
-<template id="abstract-cecchi">
-
-<h4>
-Paulina Cecchi
-</h4>
-
-<div class="popup-title">
-Monotilings en grupos promediables
-</div>
-
-<p>
-Abstract: TBA.
-</p>
-
-</template>
-
-
-
-<template id="abstract-barbieri">
-
-<h4>
-Sebastián Barbieri
-</h4>
-
-<div class="popup-title">
-Universalidad de los subshift de tipo finito para grupos
-</div>
-
-
-<p>
-Exploraré la clase de sistemas dinámicos que se pueden
-obtener como factores topológicos de subshift de tipo
-finito (SFT) en un grupo dado.
-
-Demostraremos que, si nos restringimos a factores de
-dimensión cero, necesariamente existen restricciones
-computacionales sobre esta clase.
-</p>
-
-
-<p>
-Además, mostraremos que si el grupo es lo suficientemente
-rico, entonces toda acción computable se puede obtener como
-factor de un SFT.
-
-Ofreceré una visión general de las clases de grupos donde
-esta propiedad se cumple y de aquellas donde sabemos que falla.
-</p>
-
-
-<p>
-Utilizaremos esto para proporcionar dos caracterizaciones
-interesantes de la promediabilidad (un problema aún abierto)
-del grupo F de Thompson.
-
-Estas charlas incluirán una breve y accesible introducción
-a la teoría de la computabilidad.
-</p>
-
-</template>
-
-
-
-<template id="abstract-virot">
-
-<h4>
-Théo Virot
-</h4>
-
-<div class="popup-title">
-Subgroup Distortion in Thompson’s groups
-</div>
-
-
-<p>
-Distortion in geometric group theory measures to what extend
-a subgroup H of a group G is well (quasi-isometrically)
-embedded in G.
-
-We will discuss about some constructions of distorted and
-undistorted subgroups in Thompson’s groups T and F.
-</p>
-
-</template>
-
-
-
-<template id="abstract-cortez">
-
-<h4>
-María Isabel Cortez
-</h4>
-
-<div class="popup-title">
-
-Desde simplex de Poulsen al simplex vacío:
-problemas de realización en dinámica simbólica
-
-</div>
-
-
-<p>
-En esta charla, revisaremos diversos resultados sobre la
-realización de símplices de medidas invariantes mediante
-sistemas dinámicos simbólicos.
-
-En 1991, Downarowicz demostró que todo simplex de Choquet
-metrizable puede realizarse como el espacio de medidas de
-probabilidad invariantes de un subshift de Toeplitz sobre Z.
-</p>
-
-
-<p>
-Trabajos posteriores extendieron este resultado a acciones de
-grupos amenables residualmente finitos y, más generalmente,
-a grupos congruent monotileable
-(C., Petite, 2014; Cecci-Bernales, C., 2019).
-</p>
-
-
-<p>
-Más recientemente, se ha demostrado que los subshifts de
-Toeplitz son una familia test de promediabilidad para los
-grupos residualmente finitos (C., Gómez, 2026).
-
-Discutiremos estos y otros resultados relacionados,
-así como algunos trabajos en curso.
-</p>
-
-</template>
-
-
-
-<template id="abstract-gomez">
-
-<h4>
-Franco Gómez
-</h4>
-
-<div class="popup-title">
-Dinámica 1-dimensional de los grupos Baumslag-Solitar
-</div>
-
-
-<p>
-A pesar de la simplicidad de su definición,
-los grupos Baumslag-Solitar
-
-BS(m,n)=&lt;a,b :
-ab<sup>m</sup>a<sup>-1</sup>
-=b<sup>n</sup>&gt;
-
-presentan una gran variedad de propiedades algebraicas,
-esto mismo motiva el estudio de sus aspectos dinámicos.
-</p>
-
-
-<p>
-En esta línea, un antecedente relevante es el resultado de
-C. Bonatti, I. Monteverde, A. Navas y C. Rivas,
-quienes mostraron que para ciertos grupos solubles
-(como BS(1,n)),
-toda acción por difeomorfismos de clase C¹
-en [0,1] es afín.
-</p>
-
-
-<p>
-En esta charla introduciremos el contexto de las acciones
-de BS(m,n) en dinámica 1-dimensional y expondremos las ideas
-de un trabajo reciente en colaboración con C. Rivas,
-donde mostramos que cualquier acción de BS(m,n) en [0,1]
-por difeomorfismos de clase C¹ es fiel si y solo si
-
-|n| = |m|.
-
-De hecho, en la mayoría de los casos
-(n &gt; m ≥ 1),
-toda acción de este tipo resulta ser afín también.
-</p>
-
-</template>
-
-
-
-<template id="abstract-los">
-
-<h4>
-Jérôme Los
-</h4>
-
-<div class="popup-title">
-
-New Piecewise Linear representations of surface groups
-in Homeo(S¹)
-
-</div>
-
-
-<p>
-Piecewise Linear representations of surface groups,
-i.e. in PL<sub>λ</sub>(S¹) in Homeo(S¹),
-appeared in many works starting with results by Ghys,
-Matsumoto, and more recently in Minakawa.
-
-These constructions are based on some dynamical properties
-of the geodesic flow.
-</p>
-
-
-<p>
-Here, the idea is to consider the surface group as an
-abstract group given by some presentations and use some
-other dynamical properties, the one of some
-Bowen-Series-like maps.
-</p>
-
-
-<p>
-The factors λ that appear in these constructions are
-algebraic integers, as in the previous constructions,
-but are related to the growth rate of the group presentations
-rather than to some growth of a pseudo-Anosov cross section
-to a flow.
-
-This raises some funny questions.
-</p>
-
-</template>
-
-
-
-<template id="abstract-radi">
-
-<h4>
-Santiago Radi
-</h4>
-
-<div class="popup-title">
-Proportion of periodic points in reduction of rational maps
-</div>
-
-
-<p>
-Take a rational function and a number field.
-
-If we choose a prime ideal and reduce the rational function
-modulo that prime, the rational map now acts on a finite space.
-
-We may ask:
-what is the proportion of periodic points in this reduction?
-
-How does the proportion vary when the norm of the prime goes
-to infinity?
-</p>
-
-
-<p>
-In this talk, we will use monodromy methods to answer many
-aspects of this question.
-
-The journey will take us to new structural properties of the
-iterated monodromy groups which contain valuable information
-about the dynamics of the rational functions.
-</p>
-
-</template>
-
-
-
-<template id="abstract-molina">
-
-<h4>
-Emir Molina
-</h4>
-
-<div class="popup-title">
-TBA
-</div>
-
-
-<p>
-A group G is said to be (left-)orderable if it admits an
-linear order that is invariant under (right) product by
-elements of the group.
-
-Considering the set of all orderings of an orderable group,
-one can endow it with a Polish topology and study the
-continuous conjugation action of G on it through its orbit space.
-</p>
-
-
-<p>
-In this talk, we review an application of Descriptive Set
-Theory to Dynamical Systems via orbit equivalence on standard
-Borel spaces.
-
-This framework allows us to classify and compare the
-conjugation action of orderable groups on their space of
-orders in terms of the complexity grades of their Borel
-structures.
-</p>
-
-
-<p>
-Moreover, we discuss a specific dynamical equivalence of this
-complexity criterion, which we will use to classify the orbit
-equivalence of finitely generated orderable nilpotent groups.
-
-In particular, we will provide a sufficient condition ensuring
-that the conjugacy orbit relation on the space of orders of a
-nilpotent group belongs to the lowest grade of Borel complexity,
-known as smoothness.
-</p>
-
-</template>
-
-
-
-<template id="abstract-barrios">
-
-<h4>
-Marcos Barrios
-</h4>
-
-<div class="popup-title">
-TBA
-</div>
-
-<p>
-Abstract: TBA.
-</p>
-
-</template>
-
-
-
-<template id="abstract-gilabert">
-
-<h4>
-Martin Gilabert
-</h4>
-
-<div class="popup-title">
-TBA
-</div>
-
-<p>
-Abstract: TBA.
-</p>
-
-</template>
-
-
-
-<template id="abstract-carvajales">
-
-<h4>
-Leon Carvajales
-</h4>
-
-<div class="popup-title">
-TBA
 </div>
-
-<p>
-Abstract: TBA.
-</p>
-
-</template>
-
-
 
-<!-- =====================================================
-     JAVASCRIPT
-     ===================================================== -->
 
 <script>
 
-const abstractSlots =
-  document.querySelectorAll(
-    '.slot.has-abstract'
-  );
+(function () {
+
+  const information = {
+
+    triestino: {
+
+      speaker:
+        'João Carnevale & Michele Triestino',
+
+      title:
+        'On Möbius-like groups of circle homeomorphisms',
+
+      abstract: `
+        <p>
+          The celebrated convergence group theorem characterizes,
+          among general subgroups of Homeo(S¹),
+          those that are topologically conjugate to subgroups of PSL(2,R).
+          The convergence property is, however,
+          a global property of the subgroup.
+        </p>
+
+        <p>
+          A more natural local property would be to require that
+          every single element is topologically conjugate
+          to an element of PSL(2,R).
+          Groups satisfying this condition are called Möbius-like,
+          but this is not enough to imply the convergence property.
+        </p>
+
+        <p>
+          The first clever constructions of Möbius-like groups
+          which are not convergence groups have been produced
+          by Kovačević.
+          This was later generalized by the first named speaker,
+          and we will explain the main ideas.
+        </p>
+
+        <p>
+          Considering that this is the only known construction,
+          Bonatti has conjectured that any Möbius-like group
+          is obtained in this way by repeated applications
+          of generalized Kovacevic constructions.
+          We will present a partial progress in this direction
+          obtained by the second named speaker with KyeongRo Kim.
+        </p>
+      `
+    },
 
 
-abstractSlots.forEach(function(slot){
-
-  const key =
-    slot.dataset.abstract;
-
-  const template =
-    document.getElementById(
-      'abstract-' + key
-    );
+    escayola: {
+      speaker: 'Maximiliano Escayola',
+      title: 'TBA',
+      abstract: '<p>Abstract: TBA.</p>'
+    },
 
 
-  if(template){
-
-    const popup =
-      document.createElement('div');
-
-    popup.className =
-      'abstract-popup';
+    cecchi: {
+      speaker: 'Paulina Cecchi',
+      title: 'Monotilings en grupos promediables',
+      abstract: '<p>Abstract: TBA.</p>'
+    },
 
 
-    /*
-      Popups on Thursday and Friday
-      open toward the left.
-    */
+    barbieri: {
 
-    const day =
-      slot.closest('.day');
+      speaker:
+        'Sebastián Barbieri',
 
-    const allDays =
-      Array.from(
-        document.querySelectorAll('.day')
-      );
+      title:
+        'Universalidad de los subshift de tipo finito para grupos',
 
-    const dayIndex =
-      allDays.indexOf(day);
+      abstract: `
+        <p>
+          Exploraré la clase de sistemas dinámicos que se pueden
+          obtener como factores topológicos de subshift de tipo
+          finito (SFT) en un grupo dado.
+          Demostraremos que, si nos restringimos a factores de
+          dimensión cero, necesariamente existen restricciones
+          computacionales sobre esta clase.
+        </p>
+
+        <p>
+          Además, mostraremos que si el grupo es lo suficientemente
+          rico, entonces toda acción computable se puede obtener
+          como factor de un SFT.
+          Ofreceré una visión general de las clases de grupos donde
+          esta propiedad se cumple y de aquellas donde sabemos que falla.
+        </p>
+
+        <p>
+          Utilizaremos esto para proporcionar dos caracterizaciones
+          interesantes de la promediabilidad
+          (un problema aún abierto)
+          del grupo F de Thompson.
+          Estas charlas incluirán una breve y accesible introducción
+          a la teoría de la computabilidad.
+        </p>
+      `
+    },
 
 
-    if(dayIndex >= 3){
+    gomez: {
 
-      popup.classList.add(
-        'right'
-      );
+      speaker:
+        'Franco Gómez',
 
+      title:
+        'Dinámica 1-dimensional de los grupos Baumslag-Solitar',
+
+      abstract: `
+        <p>
+          A pesar de la simplicidad de su definición,
+          los grupos Baumslag-Solitar
+          BS(m,n)=&lt;a,b :
+          ab<sup>m</sup>a<sup>-1</sup>=b<sup>n</sup>&gt;
+          presentan una gran variedad de propiedades algebraicas,
+          esto mismo motiva el estudio de sus aspectos dinámicos.
+        </p>
+
+        <p>
+          En esta línea,
+          un antecedente relevante es el resultado de
+          C. Bonatti,
+          I. Monteverde,
+          A. Navas
+          y C. Rivas,
+          quienes mostraron que para ciertos grupos solubles
+          (como BS(1,n)),
+          toda acción por difeomorfismos de clase C¹
+          en [0,1] es afín.
+        </p>
+
+        <p>
+          En esta charla introduciremos el contexto de las acciones
+          de BS(m,n) en dinámica 1-dimensional
+          y expondremos las ideas de un trabajo reciente
+          en colaboración con C. Rivas,
+          donde mostramos que cualquier acción de BS(m,n)
+          en [0,1] por difeomorfismos de clase C¹
+          es fiel si y solo si |n| = |m|.
+
+          De hecho, en la mayoría de los casos
+          (n &gt; m ≥ 1),
+          toda acción de este tipo resulta ser afín también.
+        </p>
+      `
+    },
+
+
+    carvajales: {
+      speaker: 'Leon Carvajales',
+      title: 'TBA',
+      abstract: '<p>Abstract: TBA.</p>'
+    },
+
+
+    radi: {
+
+      speaker:
+        'Santiago Radi',
+
+      title:
+        'Proportion of periodic points in reduction of rational maps',
+
+      abstract: `
+        <p>
+          Take a rational function and a number field.
+          If we choose a prime ideal and reduce the rational function
+          modulo that prime, the rational map now acts on a finite space.
+
+          We may ask:
+          what is the proportion of periodic points in this reduction?
+          How does the proportion vary when the norm of the prime
+          goes to infinity?
+        </p>
+
+        <p>
+          In this talk, we will use monodromy methods
+          to answer many aspects of this question.
+
+          The journey will take us to new structural properties
+          of the iterated monodromy groups
+          which contain valuable information
+          about the dynamics of the rational functions.
+        </p>
+      `
+    },
+
+
+    virot: {
+
+      speaker:
+        'Théo Virot',
+
+      title:
+        'Subgroup Distortion in Thompson’s groups',
+
+      abstract: `
+        <p>
+          Distortion in geometric group theory measures
+          to what extend a subgroup H of a group G
+          is well (quasi-isometrically) embedded in G.
+
+          We will discuss about some constructions
+          of distorted and undistorted subgroups
+          in Thompson’s groups T and F.
+        </p>
+      `
+    },
+
+
+    cortez: {
+
+      speaker:
+        'María Isabel Cortez',
+
+      title:
+        'Desde simplex de Poulsen al simplex vacío: problemas de realización en dinámica simbólica',
+
+      abstract: `
+        <p>
+          En esta charla,
+          revisaremos diversos resultados
+          sobre la realización de símplices de medidas invariantes
+          mediante sistemas dinámicos simbólicos.
+        </p>
+
+        <p>
+          En 1991, Downarowicz demostró que todo simplex
+          de Choquet metrizable puede realizarse
+          como el espacio de medidas de probabilidad invariantes
+          de un subshift de Toeplitz sobre Z.
+
+          Trabajos posteriores extendieron este resultado
+          a acciones de grupos amenables residualmente finitos
+          y, más generalmente,
+          a grupos congruent monotileable
+          (C., Petite, 2014;
+          Cecci-Bernales, C., 2019).
+        </p>
+
+        <p>
+          Más recientemente,
+          se ha demostrado que los subshifts de Toeplitz
+          son una familia test de promediabilidad
+          para los grupos residualmente finitos
+          (C., Gómez, 2026).
+
+          Discutiremos estos y otros resultados relacionados,
+          así como algunos trabajos en curso.
+        </p>
+      `
+    },
+
+
+    molina: {
+
+      speaker:
+        'Emir Molina',
+
+      title:
+        'TBA',
+
+      abstract: `
+        <p>
+          A group G is said to be (left-)orderable
+          if it admits an linear order
+          that is invariant under (right) product
+          by elements of the group.
+
+          Considering the set of all orderings
+          of an orderable group,
+          one can endow it with a Polish topology
+          and study the continuous conjugation action
+          of G on it through its orbit space.
+        </p>
+
+        <p>
+          In this talk,
+          we review an application of Descriptive Set Theory
+          to Dynamical Systems via orbit equivalence
+          on standard Borel spaces.
+
+          This framework allows us to classify and compare
+          the conjugation action of orderable groups
+          on their space of orders
+          in terms of the complexity grades
+          of their Borel structures.
+        </p>
+
+        <p>
+          Moreover,
+          we discuss a specific dynamical equivalence
+          of this complexity criterion,
+          which we will use to classify the orbit equivalence
+          of finitely generated orderable nilpotent groups.
+
+          In particular,
+          we will provide a sufficient condition ensuring
+          that the conjugacy orbit relation on the space of orders
+          of a nilpotent group belongs to the lowest grade
+          of Borel complexity,
+          known as smoothness.
+        </p>
+      `
+    },
+
+
+    barrios: {
+      speaker: 'Marcos Barrios',
+      title: 'TBA',
+      abstract: '<p>Abstract: TBA.</p>'
+    },
+
+
+    gilabert: {
+      speaker: 'Martin Gilabert',
+      title: 'TBA',
+      abstract: '<p>Abstract: TBA.</p>'
+    },
+
+
+    los: {
+
+      speaker:
+        'Jérôme Los',
+
+      title:
+        'New Piecewise Linear representations of surface groups in Homeo(S¹)',
+
+      abstract: `
+        <p>
+          Piecewise Linear representations of surface groups,
+          i.e. in PL<sub>λ</sub>(S¹) in Homeo(S¹),
+          appeared in many works starting with results by Ghys,
+          Matsumoto, and more recently in Minakawa.
+
+          These constructions are based on some dynamical properties
+          of the geodesic flow.
+        </p>
+
+        <p>
+          Here, the idea is to consider the surface group
+          as an abstract group given by some presentations
+          and use some other dynamical properties,
+          the one of some Bowen-Series-like maps.
+        </p>
+
+        <p>
+          The factors λ that appear in these constructions
+          are algebraic integers,
+          as in the previous constructions,
+          but are related to the growth rate
+          of the group presentations
+          rather than to some growth
+          of a pseudo-Anosov cross section to a flow.
+
+          This raises some funny questions.
+        </p>
+      `
     }
 
-
-    popup.appendChild(
-      template.content.cloneNode(true)
-    );
+  };
 
 
-    slot.appendChild(
-      popup
-    );
+  const popup =
+    document.getElementById('program-popup');
+
+  const popupSpeaker =
+    popup.querySelector('h3');
+
+  const popupTitle =
+    popup.querySelector('.popup-title');
+
+  const popupBody =
+    popup.querySelector('.popup-body');
+
+  let locked = false;
+
+
+  function showPopup(block) {
+
+    const key =
+      block.dataset.info;
+
+    const info =
+      information[key];
+
+    if (!info) {
+      return;
+    }
+
+    popupSpeaker.textContent =
+      info.speaker;
+
+    popupTitle.textContent =
+      info.title;
+
+    popupBody.innerHTML =
+      info.abstract;
+
+    popup.classList.add('visible');
+
+
+    requestAnimationFrame(function () {
+
+      const rect =
+        block.getBoundingClientRect();
+
+      const popupWidth =
+        popup.offsetWidth;
+
+      const popupHeight =
+        popup.offsetHeight;
+
+      let left =
+        rect.right + 10;
+
+      let top =
+        rect.top;
+
+
+      if (
+        left + popupWidth >
+        window.innerWidth - 10
+      ) {
+
+        left =
+          rect.left -
+          popupWidth -
+          10;
+      }
+
+
+      if (left < 10) {
+        left = 10;
+      }
+
+
+      if (
+        top + popupHeight >
+        window.innerHeight - 10
+      ) {
+
+        top =
+          window.innerHeight -
+          popupHeight -
+          10;
+      }
+
+
+      if (top < 10) {
+        top = 10;
+      }
+
+
+      popup.style.left =
+        left + 'px';
+
+      popup.style.top =
+        top + 'px';
+
+    });
+  }
+
+
+  function hidePopup() {
+
+    if (!locked) {
+      popup.classList.remove('visible');
+    }
 
   }
 
 
-  /*
-    Click / tap:
-    keep abstract visible.
-  */
+  document
+    .querySelectorAll('#program .has-abstract')
+    .forEach(function (block) {
 
-  slot.addEventListener(
-    'click',
-    function(event){
+      block.addEventListener(
+        'mouseenter',
+        function () {
 
-      if(
-        event.target.closest(
-          '.abstract-popup'
-        )
-      ){
-        return;
-      }
-
-
-      abstractSlots.forEach(
-        function(other){
-
-          if(other !== slot){
-
-            other.classList.remove(
-              'open'
-            );
-
+          if (!locked) {
+            showPopup(block);
           }
 
         }
       );
 
 
-      slot.classList.toggle(
-        'open'
+      block.addEventListener(
+        'mouseleave',
+        hidePopup
       );
 
+
+      block.addEventListener(
+        'click',
+        function (event) {
+
+          event.stopPropagation();
+
+          locked = true;
+
+          showPopup(block);
+
+        }
+      );
+
+    });
+
+
+  popup.addEventListener(
+    'click',
+    function (event) {
 
       event.stopPropagation();
 
     }
   );
 
-});
 
+  document.addEventListener(
+    'click',
+    function () {
 
-/*
-  Click elsewhere:
-  close all abstracts.
-*/
+      locked = false;
 
-document.addEventListener(
-  'click',
-  function(){
-
-    abstractSlots.forEach(
-      function(slot){
-
-        slot.classList.remove(
-          'open'
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/*
-  Escape:
-  close all abstracts.
-*/
-
-document.addEventListener(
-  'keydown',
-  function(event){
-
-    if(event.key === 'Escape'){
-
-      abstractSlots.forEach(
-        function(slot){
-
-          slot.classList.remove(
-            'open'
-          );
-
-        }
-      );
+      popup.classList.remove('visible');
 
     }
+  );
 
-  }
-);
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+
+      if (event.key === 'Escape') {
+
+        locked = false;
+
+        popup.classList.remove('visible');
+
+      }
+
+    }
+  );
+
+})();
 
 </script>
-
 
 </body>
 </html>
