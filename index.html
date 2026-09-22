@@ -758,7 +758,8 @@
           <li>Jérôme Los</li>
           <li>Emir Molina</li>
           <li>Juan Morelli</li>
-          <li>Luis Pedro Piñeyrúa</li>
+          <li>Luis Piñeyrua</li>
+          <li>Matilde Martínez</li>
           <li>Santiago Radi</li>
           <li>Michele Triestino</li>
           <li>Théo Virot</li>
@@ -776,6 +777,7 @@
           <div class="logo-card"><img src="cmat-logo.png" alt="Centro de Matemática, Facultad de Ciencias, Universidad de la República"></div>
           <div class="logo-card mathamsud"><img src="mathamsud-logo.png" alt="Math AmSud"></div>
         </div>
+
       </section>
 
 
@@ -875,22 +877,20 @@
             <p>
               A pesar de la simplicidad de su definición, los grupos Baumslag-Solitar
               BS(m,n)=&lt;a,b : ab<sup>m</sup>a<sup>-1</sup>=b<sup>n</sup>&gt;
-              presentan una gran variedad de propiedades algebraicas, esto mismo motiva el estudio de sus
-              aspectos dinámicos.
+              presentan una gran variedad de propiedades algebraicas, esto mismo motiva
+              el estudio de sus aspectos dinámicos. En esta línea, un antecedente relevante
+              es el resultado de C. Bonatti, I. Monteverde, A. Navas y C. Rivas, quienes
+              mostraron que para ciertos grupos solubles (como BS(1,n)), toda acción por
+              difeomorfismos de clase C<sup>1</sup> en [0,1] es afín.
             </p>
 
             <p>
-              En esta línea, un antecedente relevante es el resultado de C. Bonatti, I. Monteverde,
-              A. Navas y C. Rivas, quienes mostraron que para ciertos grupos solubles (como BS(1,n)),
-              toda acción por difeomorfismos de clase C¹ en [0,1] es afín.
-            </p>
-
-            <p>
-              En esta charla introduciremos el contexto de las acciones de BS(m,n) en dinámica 1-dimensional
-              y expondremos las ideas de un trabajo reciente en colaboración con C. Rivas, donde mostramos
-              que cualquier acción de BS(m,n) en [0,1] por difeomorfismos de clase C¹ es fiel si y solo si
-              |n| = |m|. De hecho, en la mayoría de los casos (n &gt; m ≥ 1), toda acción de este tipo
-              resulta ser afín también.
+              En esta charla introduciremos el contexto de las acciones de BS(m,n) en
+              dinámica 1-dimensional y expondremos las ideas de un trabajo reciente en
+              colaboración con C. Rivas, donde mostramos que hay una acción fiel de
+              BS(m,n) en [0,1] por difeomorfismos de clase C<sup>1</sup> si y sólo si
+              |n| = |m|. De hecho, en muchos casos (n &gt; m ≥ 1) si tal acción es no
+              trivial, entonces resulta ser afín también.
             </p>
           `
         },
@@ -961,25 +961,28 @@
           title: 'Borel Complexity of the Conjugacy Orbit Equivalence of Nilpotent Groups on their Space of Orders',
           abstract: `
             <p>
-              A group G is said to be (left-)orderable if it admits an linear order that is invariant under
-              (right) product by elements of the group. Considering the set of all orderings of an orderable
-              group, one can endow it with a Polish topology and study the continuous conjugation action of
-              G on it through its orbit space.
+              A group G is said to be (left-)orderable if it admits a linear order that
+              is invariant under (left) product by elements of the group. Considering the
+              space of all orderings of an orderable group, one can endow it with a Polish
+              topology and study its orbit space through the continuous, left invariant
+              action of G by conjugation.
             </p>
 
             <p>
-              In this talk, we review an application of Descriptive Set Theory to Dynamical Systems via orbit
-              equivalence on standard Borel spaces. This framework allows us to classify and compare the
-              conjugation action of orderable groups on their space of orders in terms of the complexity
-              grades of their Borel structures.
+              In this talk, we review an application of Descriptive Set Theory to
+              Dynamical Systems via orbit equivalence on standard Borel spaces. This
+              framework allows us to classify and compare the conjugation action of
+              orderable groups on their space of orders in terms of the complexity grades
+              of their Borel structures.
             </p>
 
             <p>
-              Moreover, we discuss a specific dynamical equivalence of this complexity criterion, which we
-              will use to classify the orbit equivalence of finitely generated orderable nilpotent groups.
-              In particular, we will provide a sufficient condition ensuring that the conjugacy orbit relation
-              on the space of orders of a nilpotent group belongs to the lowest grade of Borel complexity,
-              known as smoothness.
+              Moreover, we discuss a specific dynamical equivalence of this complexity
+              criterion, which we will use to classify the orbit equivalence of finitely
+              generated orderable nilpotent groups. In particular, we will provide
+              sufficient ensuring that the conjugacy orbit relation on the space of orders
+              of a nilpotent group belongs to the lowest grade of Borel complexity, known
+              as smoothness.
             </p>
           `
         },
@@ -1030,7 +1033,6 @@
 
 
       function showPopup(block) {
-
         const key = block.dataset.info;
         const info = information[key];
 
@@ -1043,7 +1045,6 @@
         popup.classList.add('visible');
 
         requestAnimationFrame(function () {
-
           const rect = block.getBoundingClientRect();
           const popupWidth = popup.offsetWidth;
           const popupHeight = popup.offsetHeight;
@@ -1081,7 +1082,6 @@
 
 
       document.querySelectorAll('#program .has-abstract').forEach(function (block) {
-
         block.addEventListener('mouseenter', function () {
           if (!locked) {
             showPopup(block);
