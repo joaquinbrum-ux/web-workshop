@@ -165,12 +165,6 @@
       font-size: 14px;
     }
 
-    /* ==========================================================
-       PROGRAM
-       Five independent day columns; no horizontal time grid.
-       Heights are proportional to duration.
-       ========================================================== */
-
     .program-legend {
       display: flex;
       flex-wrap: wrap;
@@ -341,8 +335,6 @@
       font-weight: normal;
     }
 
-    /* Floating abstract popup */
-
     #program-popup {
       display: none;
       position: fixed;
@@ -486,7 +478,6 @@
         <div class="program-week-wrapper">
           <div class="program-week">
 
-            <!-- MONDAY -->
             <div class="program-day">
               <div class="program-day-header">Monday 5</div>
 
@@ -540,7 +531,6 @@
               </div>
             </div>
 
-            <!-- TUESDAY -->
             <div class="program-day">
               <div class="program-day-header">Tuesday 6</div>
 
@@ -583,7 +573,6 @@
               </div>
             </div>
 
-            <!-- WEDNESDAY -->
             <div class="program-day">
               <div class="program-day-header">Wednesday 7</div>
 
@@ -620,7 +609,6 @@
               </div>
             </div>
 
-            <!-- THURSDAY -->
             <div class="program-day">
               <div class="program-day-header">Thursday 8</div>
 
@@ -674,7 +662,6 @@
               </div>
             </div>
 
-            <!-- FRIDAY -->
             <div class="program-day">
               <div class="program-day-header">Friday 9</div>
 
@@ -734,6 +721,18 @@
       </section>
 
 
+      <section id="materials">
+        <h2>Course materials</h2>
+        <ul>
+          <li>
+            <strong>Sebastián Barbieri</strong> —
+            <a href="materials/barbieri-notes.pdf" target="_blank" rel="noopener">notes for the minicourse</a>
+            <em>Universalidad de los subshift de tipo finito para grupos</em>.
+          </li>
+        </ul>
+      </section>
+
+
       <section id="venue">
         <h2>Venue</h2>
         <p>
@@ -746,10 +745,29 @@
           <a href="https://www.google.com/maps/search/?api=1&amp;query=Punta+Trouville+Hotel%2C+Francisco+Vidal+726%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Punta Trouville Hotel</a>,
           Francisco Vidal 726, Punta Carretas, Montevideo.
         </p>
-        <p>
-          Further practical information about the venue, transportation, and accommodation
-          will be added closer to the event.
-        </p>
+      </section>
+
+
+      <section id="food">
+        <h2>Food tips</h2>
+
+        <h3>Lunch</h3>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Sumi+Sushi%2C+Patria+699%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Sumi Sushi</a> — Japanese / sushi. ≈ UYU 600–1,200 (US$15–30).</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Cantina+y+Patria%2C+Ibiray+2252%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Cantina y Patria</a> — daily lunch menu. ≈ UYU 650 (US$16). Closed Monday.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Cantina+Facultad+de+Ingenieria%2C+Julio+Herrera+y+Reissig+565%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Facultad de Ingeniería cafeteria</a> — on campus. ≈ UYU 280 (US$7).</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Rodelu%2C+Requena+y+Garcia%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Rodelú</a> — traditional Uruguayan food. ≈ US$10–20.</li>
+        </ul>
+
+        <h3>Dinner</h3>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=La+Pulperia%2C+Lagunillas+448%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Pulpería</a> — traditional parrillada. ≈ UYU 600–1,400 (US$15–35).</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=La+Otra+Parrilla%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Otra</a> — parrillada; a bit more expensive. ≈ US$25–35.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=De+Morondanga%2C+Dr.+Mario+Cassinoni+1200%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">De Morondanga</a> — good tapas to share. ≈ US$25 per person.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=La+Giraldita%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Giraldita</a> — traditional Uruguayan food. ≈ US$10–15.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Mercado+Williman%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Mercado Williman</a> — food hall with many options; convenient for groups. ≈ US$10–20.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Bar+Marbella%2C+Av.+Gonzalo+Ramirez+2105%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Bar Marbella</a> — pizza and fainá; non-zero probability of running into a mathematician. ≈ UYU 600–1,000 (US$15–25).</li>
+        </ul>
       </section>
 
 
@@ -1102,14 +1120,12 @@
         }
       };
 
-
       const popup = document.getElementById('program-popup');
       const popupSpeaker = popup.querySelector('h3');
       const popupTitle = popup.querySelector('.popup-title');
       const popupBody = popup.querySelector('.popup-body');
 
       let locked = false;
-
 
       function showPopup(block) {
 
@@ -1154,13 +1170,11 @@
         });
       }
 
-
       function hidePopup() {
         if (!locked) {
           popup.classList.remove('visible');
         }
       }
-
 
       document.querySelectorAll('#program .has-abstract').forEach(function (block) {
 
@@ -1179,17 +1193,14 @@
         });
       });
 
-
       popup.addEventListener('click', function (event) {
         event.stopPropagation();
       });
-
 
       document.addEventListener('click', function () {
         locked = false;
         popup.classList.remove('visible');
       });
-
 
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
