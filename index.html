@@ -22,8 +22,8 @@
       --coffee-border: #facc15;
       --lunch: #fee2e2;
       --lunch-border: #fca5a5;
-      --free: #f3f4f6;
-      --free-border: #d1d5db;
+      --group: #ede9fe;
+      --group-border: #c4b5fd;
 
       --minute-height: 1.25px;
     }
@@ -191,6 +191,7 @@
     .program-color.talk { background: var(--talk); }
     .program-color.coffee { background: var(--coffee); }
     .program-color.lunch { background: var(--lunch); }
+    .program-color.group { background: var(--group); }
 
     .program-help {
       color: var(--muted);
@@ -275,14 +276,12 @@
       justify-content: center;
     }
 
-    .program-block.free {
-      background: var(--free);
-      border-color: var(--free-border);
+    .program-block.group {
+      background: var(--group);
+      border-color: var(--group-border);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: #777;
-      font-style: italic;
     }
 
     .program-block.has-abstract {
@@ -421,6 +420,7 @@
           <span class="program-legend-item"><span class="program-color talk"></span>Research talk</span>
           <span class="program-legend-item"><span class="program-color coffee"></span>Coffee break</span>
           <span class="program-legend-item"><span class="program-color lunch"></span>Lunch break</span>
+          <span class="program-legend-item"><span class="program-color group"></span>Group therapy</span>
         </div>
 
         <p class="program-help">
@@ -482,7 +482,6 @@
               </div>
             </div>
 
-
             <div class="program-day">
               <div class="program-day-header">Tuesday 6</div>
               <div class="program-day-body">
@@ -524,7 +523,6 @@
               </div>
             </div>
 
-
             <div class="program-day">
               <div class="program-day-header">Wednesday 7</div>
               <div class="program-day-body">
@@ -552,14 +550,18 @@
                   <span class="program-title">Desde simplex de Poulsen al simplex vacío: problemas de realización en dinámica simbólica</span>
                 </div>
 
-                <div class="program-block free" style="--minutes:180">
-                  <span class="program-time">Afternoon</span>
-                  <span class="program-name">Free afternoon</span>
+                <div class="program-block lunch" style="--minutes:90">
+                  <span class="program-time">12:20–13:50</span>
+                  <span class="program-name">Lunch break</span>
+                </div>
+
+                <div class="program-block group" style="--minutes:190">
+                  <span class="program-time">13:50–17:00</span>
+                  <span class="program-name">Group therapy</span>
                 </div>
 
               </div>
             </div>
-
 
             <div class="program-day">
               <div class="program-day-header">Thursday 8</div>
@@ -612,7 +614,6 @@
 
               </div>
             </div>
-
 
             <div class="program-day">
               <div class="program-day-header">Friday 9</div>
@@ -671,7 +672,6 @@
 
       </section>
 
-
       <section id="materials">
         <h2>Course materials</h2>
         <ul>
@@ -682,7 +682,6 @@
           </li>
         </ul>
       </section>
-
 
       <section id="venue">
         <h2>Venue</h2>
@@ -700,7 +699,6 @@
           Francisco Vidal 726, Punta Carretas, Montevideo.
         </p>
       </section>
-
 
       <section id="food">
         <h2>Food tips</h2>
@@ -761,7 +759,6 @@
         </ul>
       </section>
 
-
       <section id="speakers">
         <h2>Speakers</h2>
 
@@ -786,7 +783,6 @@
           <li><strong>Théo Virot</strong> &mdash; <em>Subgroup Distortion in Thompson’s groups</em></li>
         </ul>
       </section>
-
 
       <section id="participants">
         <h2>Participants</h2>
@@ -818,7 +814,6 @@
         </ul>
       </section>
 
-
       <section id="sponsors">
         <h2>Sponsors and supporting institutions</h2>
 
@@ -831,7 +826,6 @@
         </div>
       </section>
 
-
       <section id="contact">
         <h2>Contact</h2>
         <p>For inquiries, please contact joaquinbrum@gmail.com</p>
@@ -840,11 +834,10 @@
     </main>
 
     <footer>
-      Workshop on group dynamics &middot; Montevideo, Uruguay &middot; Last updated: September 2026
+      Workshop on group dynamics &middot; Montevideo, Uruguay &middot; Last updated: October 2026
     </footer>
 
   </div>
-
 
   <script>
     (function () {
@@ -860,19 +853,16 @@
               those that are topologically conjugate to subgroups of PSL(2,R). The convergence property is,
               however, a global property of the subgroup.
             </p>
-
             <p>
               A more natural local property would be to require that every single element is topologically
               conjugate to an element of PSL(2,R). Groups satisfying this condition are called Möbius-like,
               but this is not enough to imply the convergence property.
             </p>
-
             <p>
               The first clever constructions of Möbius-like groups which are not convergence groups have
               been produced by Kovačević. This was later generalized by the first named speaker, and we
               will explain the main ideas.
             </p>
-
             <p>
               Considering that this is the only known construction, Bonatti has conjectured that any
               Möbius-like group is obtained in this way by repeated applications of generalized Kovacevic
@@ -892,7 +882,6 @@
               Cantor minimal set. I will begin by recalling some basic facts from Denjoy theory
               and the construction of exceptional examples.
             </p>
-
             <p>
               I will then discuss how the regularity of the diffeomorphism constrains the
               geometry of the complementary intervals, with particular emphasis on a question
@@ -913,7 +902,6 @@
               La relevancia original de estudiar monotiles en grupos promediables se basa en
               el rol central que juegan en Teoría ergódica, a través del Lemma de Rokhlin.
             </p>
-
             <p>
               En este mini curso estudiaremos varios aspectos de los monotilings en grupos
               promediables. En particular, estudiaremos en detalle la familia de los
@@ -935,13 +923,11 @@
               subshift de tipo finito (SFT) en un grupo dado. Demostraremos que, si nos restringimos a
               factores de dimensión cero, necesariamente existen restricciones computacionales sobre esta clase.
             </p>
-
             <p>
               Además, mostraremos que si el grupo es lo suficientemente rico, entonces toda acción computable
               se puede obtener como factor de un SFT. Ofreceré una visión general de las clases de grupos donde
               esta propiedad se cumple y de aquellas donde sabemos que falla.
             </p>
-
             <p>
               Utilizaremos esto para proporcionar dos caracterizaciones interesantes de la promediabilidad
               (un problema aún abierto) del grupo F de Thompson. Estas charlas incluirán una breve y accesible
@@ -963,7 +949,6 @@
               mostraron que para ciertos grupos solubles (como BS(1,n)), toda acción por
               difeomorfismos de clase C<sup>1</sup> en [0,1] es afín.
             </p>
-
             <p>
               En esta charla introduciremos el contexto de las acciones de BS(m,n) en
               dinámica 1-dimensional y expondremos las ideas de un trabajo reciente en
@@ -986,7 +971,6 @@
               the notion of <em>Anosov representations</em>, a condition strengthening both faithfulness
               and discreteness.
             </p>
-
             <p>
               We will then discuss ongoing joint work with J. Brum and R. Potrie, trying to understand
               some features of the space of Anosov representations inside the full representation space.
@@ -1004,7 +988,6 @@
               the proportion of periodic points in this reduction? How does the proportion vary when the norm
               of the prime goes to infinity?
             </p>
-
             <p>
               In this talk, we will use monodromy methods to answer many aspects of this question. The journey
               will take us to new structural properties of the iterated monodromy groups which contain valuable
@@ -1033,14 +1016,12 @@
               En esta charla, revisaremos diversos resultados sobre la realización de símplices de medidas
               invariantes mediante sistemas dinámicos simbólicos.
             </p>
-
             <p>
               En 1991, Downarowicz demostró que todo simplex de Choquet metrizable puede realizarse como el
               espacio de medidas de probabilidad invariantes de un subshift de Toeplitz sobre Z. Trabajos
               posteriores extendieron este resultado a acciones de grupos amenables residualmente finitos y,
               más generalmente, a grupos congruent monotileable (C., Petite, 2014; Cecci-Bernales, C., 2019).
             </p>
-
             <p>
               Más recientemente, se ha demostrado que los subshifts de Toeplitz son una familia test de
               promediabilidad para los grupos residualmente finitos (C., Gómez, 2026). Discutiremos estos y
@@ -1060,7 +1041,6 @@
               topology and study its orbit space through the continuous, left invariant
               action of G by conjugation.
             </p>
-
             <p>
               In this talk, we review an application of Descriptive Set Theory to
               Dynamical Systems via orbit equivalence on standard Borel spaces. This
@@ -1068,7 +1048,6 @@
               orderable groups on their space of orders in terms of the complexity grades
               of their Borel structures.
             </p>
-
             <p>
               Moreover, we discuss a specific dynamical equivalence of this complexity
               criterion, which we will use to classify the orbit equivalence of finitely
@@ -1097,7 +1076,6 @@
               Poisson-Furstenberg boundary of (G, μ)). The existence of these
               measures is related to the C*-simplicity of G.
             </p>
-
             <p>
               After defining these terms and motivating these questions, we give a
               general condition for the existence of such measures μ that may be
@@ -1118,12 +1096,10 @@
               appeared in many works starting with results by Ghys, Matsumoto, and more recently in Minakawa.
               These constructions are based on some dynamical properties of the geodesic flow.
             </p>
-
             <p>
               Here, the idea is to consider the surface group as an abstract group given by some presentations
               and use some other dynamical properties, the one of some Bowen-Series-like maps.
             </p>
-
             <p>
               The factors λ that appear in these constructions are algebraic integers, as in the previous
               constructions, but are related to the growth rate of the group presentations rather than to some
