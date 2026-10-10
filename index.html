@@ -142,14 +142,6 @@
       margin: 22px 0 10px;
     }
 
-    .hero-image img {
-      width: 100%;
-      max-height: 430px;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      display: block;
-    }
-
     .caption {
       margin-top: 6px;
       font-size: 13px;
@@ -376,6 +368,16 @@
       margin-bottom: 0;
     }
 
+    .conference-video {
+      display: block;
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      background: #000;
+    }
+
     @media (max-width: 700px) {
       h1 { font-size: 30px; }
       .subtitle { font-size: 18px; }
@@ -389,11 +391,21 @@
 
     <header>
       <div class="logos" aria-label="Sponsors and supporting institutions">
-        <div class="logo-card dark"><img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República"></div>
-        <div class="logo-card dark imerl"><img src="imerl-logo.png" alt="IMERL"></div>
-        <div class="logo-card"><img src="ifumi-logo.png" alt="IFUMI"></div>
-        <div class="logo-card"><img src="cmat-logo.png" alt="CMAT, UdelaR-FCIEN"></div>
-        <div class="logo-card mathamsud"><img src="mathamsud-logo.png" alt="Math AmSud"></div>
+        <div class="logo-card dark">
+          <img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República">
+        </div>
+        <div class="logo-card dark imerl">
+          <img src="imerl-logo.png" alt="IMERL">
+        </div>
+        <div class="logo-card">
+          <img src="ifumi-logo.png" alt="IFUMI">
+        </div>
+        <div class="logo-card">
+          <img src="cmat-logo.png" alt="CMAT, UdelaR-FCIEN">
+        </div>
+        <div class="logo-card mathamsud">
+          <img src="mathamsud-logo.png" alt="Math AmSud">
+        </div>
       </div>
 
       <h1>Workshop on group dynamics</h1>
@@ -405,8 +417,13 @@
       </div>
 
       <figure class="hero-image">
-        <img src="fing-building.png" alt="Facultad de Ingeniería, Universidad de la República, Montevideo">
-        <figcaption class="caption">Facultad de Ingeniería, Universidad de la República, Montevideo.</figcaption>
+        <video class="conference-video" controls loop playsinline preload="metadata">
+          <source src="conference_suspense.mp4" type="video/mp4">
+          Your browser does not support embedded video.
+        </video>
+        <figcaption class="caption">
+          Workshop on group dynamics, Montevideo, 2026.
+        </figcaption>
       </figure>
     </header>
 
@@ -430,8 +447,10 @@
         <div class="program-week-wrapper">
           <div class="program-week">
 
+            <!-- MONDAY -->
             <div class="program-day">
               <div class="program-day-header">Monday 5</div>
+
               <div class="program-day-body">
 
                 <div class="program-block mini has-abstract" data-info="triestino" style="--minutes:60">
@@ -482,8 +501,10 @@
               </div>
             </div>
 
+            <!-- TUESDAY -->
             <div class="program-day">
               <div class="program-day-header">Tuesday 6</div>
+
               <div class="program-day-body">
 
                 <div class="program-block mini has-abstract" data-info="triestino" style="--minutes:60">
@@ -523,8 +544,10 @@
               </div>
             </div>
 
+            <!-- WEDNESDAY -->
             <div class="program-day">
               <div class="program-day-header">Wednesday 7</div>
+
               <div class="program-day-body">
 
                 <div class="program-block mini has-abstract" data-info="triestino" style="--minutes:60">
@@ -563,8 +586,10 @@
               </div>
             </div>
 
+            <!-- THURSDAY -->
             <div class="program-day">
               <div class="program-day-header">Thursday 8</div>
+
               <div class="program-day-body">
 
                 <div class="program-block mini has-abstract" data-info="cecchi" style="--minutes:60">
@@ -615,8 +640,10 @@
               </div>
             </div>
 
+            <!-- FRIDAY -->
             <div class="program-day">
               <div class="program-day-header">Friday 9</div>
+
               <div class="program-day-body">
 
                 <div class="program-block mini has-abstract" data-info="barbieri" style="--minutes:60">
@@ -669,39 +696,44 @@
           <div class="popup-title"></div>
           <div class="popup-body"></div>
         </div>
-
       </section>
-
 
       <section id="materials">
         <h2>Course materials</h2>
         <ul>
           <li>
             <strong>Sebastián Barbieri</strong> —
-            <a href="minicourse-selfsimulable.pdf" target="_blank" rel="noopener">notes for the minicourse</a>
+            <a href="minicourse-selfsimulable.pdf" target="_blank" rel="noopener">
+              notes for the minicourse
+            </a>
             <em>Universalidad de los subshift de tipo finito para grupos</em>.
           </li>
         </ul>
       </section>
-
 
       <section id="venue">
         <h2>Venue</h2>
 
         <p>
           The workshop will be held at IMERL,
-          <a href="https://maps.app.goo.gl/DFyvmnpEegjoErq48" target="_blank" rel="noopener">Facultad de Ingeniería</a>,
+          <a href="https://maps.app.goo.gl/DFyvmnpEegjoErq48" target="_blank" rel="noopener">
+            Facultad de Ingeniería
+          </a>,
           Universidad de la República, Montevideo, Uruguay.
         </p>
 
         <p>
           Participants whose accommodation is provided by the organization will stay at
-          <a href="https://www.google.com/maps/search/?api=1&amp;query=Punta+Trouville+Hotel%2C+Francisco+Vidal+726%2C+Montevideo%2C+Uruguay"
-             target="_blank" rel="noopener">Punta Trouville Hotel</a>,
+          <a
+            href="https://www.google.com/maps/search/?api=1&amp;query=Punta+Trouville+Hotel%2C+Francisco+Vidal+726%2C+Montevideo%2C+Uruguay"
+            target="_blank"
+            rel="noopener"
+          >
+            Punta Trouville Hotel
+          </a>,
           Francisco Vidal 726, Punta Carretas, Montevideo.
         </p>
       </section>
-
 
       <section id="food">
         <h2>Food tips</h2>
@@ -709,12 +741,16 @@
         <h3>Lunch</h3>
         <ul>
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Sumi+Sushi%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Sumi Sushi</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Sumi+Sushi%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              Sumi Sushi
+            </a>
             — sushi. ≈ US$10–15.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Cantina+y+Patria%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Cantina y Patria</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Cantina+y+Patria%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              Cantina y Patria
+            </a>
             — lunch. ≈ US$10–15.
           </li>
 
@@ -723,7 +759,9 @@
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Rodelu%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Rodelú</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Rodelu%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              Rodelú
+            </a>
             — traditional Uruguayan food. ≈ US$10–20.
           </li>
         </ul>
@@ -731,66 +769,126 @@
         <h3>Dinner</h3>
         <ul>
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Pulperia%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Pulpería</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Pulperia%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              La Pulpería
+            </a>
             — traditional parrillada. ≈ US$15–25.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Otra+Parrilla%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Otra</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Otra+Parrilla%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              La Otra
+            </a>
             — parrillada. ≈ US$25–35.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=De+Morondanga%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">De Morondanga</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=De+Morondanga%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              De Morondanga
+            </a>
             — good for sharing tapas. ≈ US$15–20.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Giraldita%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">La Giraldita</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=La+Giraldita%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              La Giraldita
+            </a>
             — traditional Uruguayan food. ≈ US$10–15.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Mercado+Williman%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Mercado Williman</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Mercado+Williman%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              Mercado Williman
+            </a>
             — food hall with many options. ≈ US$10–20.
           </li>
 
           <li>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Bar+Marbella%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">Marbella</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Bar+Marbella%2C+Montevideo%2C+Uruguay" target="_blank" rel="noopener">
+              Marbella
+            </a>
             — pizza and fainá; non-zero probability of running into a mathematician. ≈ US$10–15.
           </li>
         </ul>
       </section>
-
 
       <section id="speakers">
         <h2>Speakers</h2>
 
         <h3>Minicourse speakers</h3>
         <ul>
-          <li><strong>Sebastián Barbieri</strong> (Universidad de Chile, Chile) &mdash; <em>Universalidad de los subshift de tipo finito para grupos</em></li>
-          <li><strong>João Carnevale</strong> (Universidad Federal do Rio, Brazil) and <strong>Michele Triestino</strong> (Universidad de Marsella, France) &mdash; <em>On Möbius-like groups of circle homeomorphisms</em></li>
-          <li><strong>Paulina Cecchi</strong> (Universidad de Chile, Chile) &mdash; <em>Monotilings en grupos promediables</em></li>
-          <li><strong>Maximiliano Escayola</strong> (KIAS, Korea) &mdash; <em>Exceptional diffeomorphisms of the circle</em></li>
+          <li>
+            <strong>Sebastián Barbieri</strong> (Universidad de Chile, Chile)
+            &mdash; <em>Universalidad de los subshift de tipo finito para grupos</em>
+          </li>
+
+          <li>
+            <strong>João Carnevale</strong> (Universidad Federal do Rio, Brazil) and
+            <strong>Michele Triestino</strong> (Universidad de Marsella, France)
+            &mdash; <em>On Möbius-like groups of circle homeomorphisms</em>
+          </li>
+
+          <li>
+            <strong>Paulina Cecchi</strong> (Universidad de Chile, Chile)
+            &mdash; <em>Monotilings en grupos promediables</em>
+          </li>
+
+          <li>
+            <strong>Maximiliano Escayola</strong> (KIAS, Korea)
+            &mdash; <em>Exceptional diffeomorphisms of the circle</em>
+          </li>
         </ul>
 
         <h3>Talk speakers</h3>
         <ul>
-          <li><strong>Marcos Barrios</strong> (UdelaR, Uruguay) &mdash; <em>TBA</em></li>
-          <li><strong>Leon Carvajales</strong> (IESTA, UdelaR, Uruguay) &mdash; <em>Some deformation invariants of Anosov surface groups in SL_3(R)</em></li>
-          <li><strong>Matilde Martínez</strong> &mdash; <em>TBA</em></li>
-          <li><strong>Martin Gilabert</strong> (Université de Rennes, France) &mdash; <em>Stationary boundaries on the space of amenable subgroups.</em></li>
-          <li><strong>Franco Gómez</strong> (Universidad de Chile, Chile) &mdash; <em>Dinámica 1-dimensional de los grupos Baumslag-Solitar</em></li>
-          <li><strong>Jérôme Los</strong> (Universidad de Marsella, France) &mdash; <em>New Piecewise Linear representations of surface groups in Homeo(S¹)</em></li>
-          <li><strong>Emir Molina</strong> (Universidad de Chile, Chile) &mdash; <em>Borel Complexity of the Conjugacy Orbit Equivalence of Nilpotent Groups on their Space of Orders</em></li>
-          <li><strong>Santiago Radi</strong> (UdelaR, Uruguay) &mdash; <em>Proportion of periodic points in reduction of rational maps</em></li>
-          <li><strong>Théo Virot</strong> &mdash; <em>Subgroup Distortion in Thompson’s groups</em></li>
+          <li>
+            <strong>Marcos Barrios</strong> (UdelaR, Uruguay) &mdash; <em>TBA</em>
+          </li>
+
+          <li>
+            <strong>Leon Carvajales</strong> (IESTA, UdelaR, Uruguay)
+            &mdash; <em>Some deformation invariants of Anosov surface groups in SL_3(R)</em>
+          </li>
+
+          <li>
+            <strong>Matilde Martínez</strong> &mdash; <em>TBA</em>
+          </li>
+
+          <li>
+            <strong>Martin Gilabert</strong> (Université de Rennes, France)
+            &mdash; <em>Stationary boundaries on the space of amenable subgroups.</em>
+          </li>
+
+          <li>
+            <strong>Franco Gómez</strong> (Universidad de Chile, Chile)
+            &mdash; <em>Dinámica 1-dimensional de los grupos Baumslag-Solitar</em>
+          </li>
+
+          <li>
+            <strong>Jérôme Los</strong> (Universidad de Marsella, France)
+            &mdash; <em>New Piecewise Linear representations of surface groups in Homeo(S¹)</em>
+          </li>
+
+          <li>
+            <strong>Emir Molina</strong> (Universidad de Chile, Chile)
+            &mdash; <em>Borel Complexity of the Conjugacy Orbit Equivalence of Nilpotent Groups on their Space of Orders</em>
+          </li>
+
+          <li>
+            <strong>Santiago Radi</strong> (UdelaR, Uruguay)
+            &mdash; <em>Proportion of periodic points in reduction of rational maps</em>
+          </li>
+
+          <li>
+            <strong>Théo Virot</strong>
+            &mdash; <em>Subgroup Distortion in Thompson’s groups</em>
+          </li>
         </ul>
       </section>
 
-
       <section id="participants">
         <h2>Participants</h2>
+
         <ul>
           <li>Juan Alonso</li>
           <li>Marcos Barrios</li>
@@ -819,19 +917,31 @@
         </ul>
       </section>
 
-
       <section id="sponsors">
         <h2>Sponsors and supporting institutions</h2>
 
         <div class="logos" aria-label="Sponsors and supporting institutions">
-          <div class="logo-card dark"><img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República"></div>
-          <div class="logo-card dark imerl"><img src="imerl-logo.png" alt="IMERL"></div>
-          <div class="logo-card"><img src="ifumi-logo.png" alt="IFUMI"></div>
-          <div class="logo-card"><img src="cmat-logo.png" alt="Centro de Matemática, Facultad de Ciencias, Universidad de la República"></div>
-          <div class="logo-card mathamsud"><img src="mathamsud-logo.png" alt="Math AmSud"></div>
+          <div class="logo-card dark">
+            <img src="fing-logo.png" alt="Facultad de Ingeniería, Universidad de la República">
+          </div>
+
+          <div class="logo-card dark imerl">
+            <img src="imerl-logo.png" alt="IMERL">
+          </div>
+
+          <div class="logo-card">
+            <img src="ifumi-logo.png" alt="IFUMI">
+          </div>
+
+          <div class="logo-card">
+            <img src="cmat-logo.png" alt="Centro de Matemática, Facultad de Ciencias, Universidad de la República">
+          </div>
+
+          <div class="logo-card mathamsud">
+            <img src="mathamsud-logo.png" alt="Math AmSud">
+          </div>
         </div>
       </section>
-
 
       <section id="contact">
         <h2>Contact</h2>
@@ -845,7 +955,6 @@
     </footer>
 
   </div>
-
 
   <script>
     (function () {
@@ -861,16 +970,19 @@
               those that are topologically conjugate to subgroups of PSL(2,R). The convergence property is,
               however, a global property of the subgroup.
             </p>
+
             <p>
               A more natural local property would be to require that every single element is topologically
               conjugate to an element of PSL(2,R). Groups satisfying this condition are called Möbius-like,
               but this is not enough to imply the convergence property.
             </p>
+
             <p>
               The first clever constructions of Möbius-like groups which are not convergence groups have
               been produced by Kovačević. This was later generalized by the first named speaker, and we
               will explain the main ideas.
             </p>
+
             <p>
               Considering that this is the only known construction, Bonatti has conjectured that any
               Möbius-like group is obtained in this way by repeated applications of generalized Kovacevic
@@ -890,6 +1002,7 @@
               Cantor minimal set. I will begin by recalling some basic facts from Denjoy theory
               and the construction of exceptional examples.
             </p>
+
             <p>
               I will then discuss how the regularity of the diffeomorphism constrains the
               geometry of the complementary intervals, with particular emphasis on a question
@@ -910,6 +1023,7 @@
               La relevancia original de estudiar monotiles en grupos promediables se basa en
               el rol central que juegan en Teoría ergódica, a través del Lemma de Rokhlin.
             </p>
+
             <p>
               En este mini curso estudiaremos varios aspectos de los monotilings en grupos
               promediables. En particular, estudiaremos en detalle la familia de los
@@ -931,11 +1045,13 @@
               subshift de tipo finito (SFT) en un grupo dado. Demostraremos que, si nos restringimos a
               factores de dimensión cero, necesariamente existen restricciones computacionales sobre esta clase.
             </p>
+
             <p>
               Además, mostraremos que si el grupo es lo suficientemente rico, entonces toda acción computable
               se puede obtener como factor de un SFT. Ofreceré una visión general de las clases de grupos donde
               esta propiedad se cumple y de aquellas donde sabemos que falla.
             </p>
+
             <p>
               Utilizaremos esto para proporcionar dos caracterizaciones interesantes de la promediabilidad
               (un problema aún abierto) del grupo F de Thompson. Estas charlas incluirán una breve y accesible
@@ -957,6 +1073,7 @@
               mostraron que para ciertos grupos solubles (como BS(1,n)), toda acción por
               difeomorfismos de clase C<sup>1</sup> en [0,1] es afín.
             </p>
+
             <p>
               En esta charla introduciremos el contexto de las acciones de BS(m,n) en
               dinámica 1-dimensional y expondremos las ideas de un trabajo reciente en
@@ -979,6 +1096,7 @@
               the notion of <em>Anosov representations</em>, a condition strengthening both faithfulness
               and discreteness.
             </p>
+
             <p>
               We will then discuss ongoing joint work with J. Brum and R. Potrie, trying to understand
               some features of the space of Anosov representations inside the full representation space.
@@ -996,6 +1114,7 @@
               the proportion of periodic points in this reduction? How does the proportion vary when the norm
               of the prime goes to infinity?
             </p>
+
             <p>
               In this talk, we will use monodromy methods to answer many aspects of this question. The journey
               will take us to new structural properties of the iterated monodromy groups which contain valuable
@@ -1033,6 +1152,7 @@
               topology and study its orbit space through the continuous, left invariant
               action of G by conjugation.
             </p>
+
             <p>
               In this talk, we review an application of Descriptive Set Theory to
               Dynamical Systems via orbit equivalence on standard Borel spaces. This
@@ -1040,6 +1160,7 @@
               orderable groups on their space of orders in terms of the complexity grades
               of their Borel structures.
             </p>
+
             <p>
               Moreover, we discuss a specific dynamical equivalence of this complexity
               criterion, which we will use to classify the orbit equivalence of finitely
@@ -1068,6 +1189,7 @@
               Poisson-Furstenberg boundary of (G, μ)). The existence of these
               measures is related to the C*-simplicity of G.
             </p>
+
             <p>
               After defining these terms and motivating these questions, we give a
               general condition for the existence of such measures μ that may be
@@ -1088,10 +1210,12 @@
               appeared in many works starting with results by Ghys, Matsumoto, and more recently in Minakawa.
               These constructions are based on some dynamical properties of the geodesic flow.
             </p>
+
             <p>
               Here, the idea is to consider the surface group as an abstract group given by some presentations
               and use some other dynamical properties, the one of some Bowen-Series-like maps.
             </p>
+
             <p>
               The factors λ that appear in these constructions are algebraic integers, as in the previous
               constructions, but are related to the growth rate of the group presentations rather than to some
